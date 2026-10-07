@@ -1,0 +1,230 @@
+{
+  "app_slug": "chronosleep",
+  "app_name": "ChronoSleep",
+  "version": "3.0",
+  "stage_completed": 3,
+  "status": "QA_UX_READY",
+  "next_agent": 4,
+  "created_at": "2026-10-04T15:38:00-05:00",
+  "files": [
+    "00_START_HERE.md",
+    "01_estrategia/brief.json",
+    "01_estrategia/brief_estrategico.docx",
+    "01_estrategia/brief_estrategico.md",
+    "01_estrategia/fuentes_mercado.csv",
+    "02_datos_modelo/__pycache__/engine_reference.cpython-313.pyc",
+    "02_datos_modelo/base_chronosleep.xlsx",
+    "02_datos_modelo/drive/base/base_chronosleep.xlsx",
+    "02_datos_modelo/drive/base/fuentes_datos.csv",
+    "02_datos_modelo/drive/docs/model_card.md",
+    "02_datos_modelo/drive/model/model_params.json",
+    "02_datos_modelo/drive/model/model_spec.json",
+    "02_datos_modelo/drive/model/test_vectors.json",
+    "02_datos_modelo/drive/templates/informe_template.md",
+    "02_datos_modelo/drive_manifest.json",
+    "02_datos_modelo/engine_reference.py",
+    "02_datos_modelo/estudio_modelos.md",
+    "02_datos_modelo/fuentes_datos.csv",
+    "02_datos_modelo/ingest/ingest.py",
+    "02_datos_modelo/inputs.schema.json",
+    "02_datos_modelo/model_card.md",
+    "02_datos_modelo/model_spec.json",
+    "02_datos_modelo/monetizacion.json",
+    "02_datos_modelo/outputs_spec.json",
+    "02_datos_modelo/test_vectors.json",
+    "03_qa_ux/__pycache__/qa_engine.cpython-313.pyc",
+    "03_qa_ux/analytics_events.json",
+    "03_qa_ux/components.md",
+    "03_qa_ux/copy_i18n.json",
+    "03_qa_ux/design_tokens.json",
+    "03_qa_ux/prototype.html",
+    "03_qa_ux/qa_checks.json",
+    "03_qa_ux/qa_engine.py",
+    "03_qa_ux/qa_report.md",
+    "03_qa_ux/report_layout.md",
+    "03_qa_ux/sitemap_flows.md",
+    "03_qa_ux/ux_spec.md",
+    "handoff.json"
+  ],
+  "decisions": [
+    {
+      "decision": "Conservar el nombre ChronoSleep en v1 del handoff.",
+      "why": "Coincide con la fuente del usuario y existe presencia pública coherente; la titularidad queda como open issue."
+    },
+    {
+      "decision": "Pivotar de quiz de 4 animales a predictor/simulador de social jetlag + planner de 7 días.",
+      "why": "Mejora precisión, utilidad, diferenciación y monetización sin elevar fricción ni costo de operación."
+    },
+    {
+      "decision": "No requerir wearables en MVP.",
+      "why": "La promesa central es resultado <90 s con inputs que el usuario conoce; wearables reducen alcance y velocidad."
+    },
+    {
+      "decision": "Usar cálculo determinista y fórmulas publicadas; LLM solo puede redactar el informe.",
+      "why": "Cumple regla de fábrica y hace el resultado auditable."
+    },
+    {
+      "decision": "Fase 1 captura email antes de cobrar.",
+      "why": "Validar demanda y disposición de pago antes de integrar pagos."
+    },
+    {
+      "decision": "Excluir diagnóstico/tratamiento médico.",
+      "why": "Reducir riesgo regulatorio y mantener foco en wellness/planificación."
+    },
+    {
+      "decision": "Modelo principal: MSW/MSF + social jetlag absoluto con intervalo circular más corto; MSFsc queda como proxy secundario.",
+      "why": "Es reproducible, auditable, directamente alineado con el target y evita el error de resta lineal al cruzar medianoche."
+    },
+    {
+      "decision": "Modelo de respaldo: Jankowski SJLsc con intervalo circular más corto, solo como sensibilidad metodológica.",
+      "why": "Usa los mismos inputs, tiene fórmula publicada e implementación MIT, pero la alternativa es discutida y no debe reemplazar la cifra principal."
+    },
+    {
+      "decision": "Eliminar del núcleo cualquier Alignment Score 0–100.",
+      "why": "No existe una calibración universal validada para ese score; se conservan horas/minutos y bandas descriptivas poblacionales."
+    },
+    {
+      "decision": "Tratar el plan de 7 días como simulación determinista de calendario bajo adherencia.",
+      "why": "Con los inputs MVP no es científicamente defendible prometer una predicción fisiológica de DLMO/adaptación circadiana."
+    },
+    {
+      "decision": "Mantener input_time_uncertainty_min=15 y planner_max_free_shift_min=90 como preliminares.",
+      "why": "Son supuestos de producto/sensibilidad, no constantes científicas; deben validarse en piloto."
+    },
+    {
+      "decision": "Localizar el precio de lanzamiento con PPP 2025 y redondeo comercial; recomendar MXN 89 y EUR 4,90 en lugar de MXN 99 y EUR 6,90 del brief.",
+      "why": "Los factores PPP oficiales 2025 aproximan mejor la paridad de consumo; el precio final sigue siendo una hipótesis de elasticidad."
+    },
+    {
+      "decision": "Alinear wake_flexibility_min a cualquier entero 0–120, no a un enum de cinco valores.",
+      "why": "Es coherente con los vectores oficiales, el comportamiento del motor y la promesa de flexibilidad continua."
+    },
+    {
+      "decision": "Rechazar inputs enteros no integrales en lugar de truncarlos.",
+      "why": "Evita transformar silenciosamente datos inválidos y mantiene contrato JSON/UX/motor."
+    },
+    {
+      "decision": "Mostrar el SJL completo antes del email gate y reservar plan/escenarios/metodología para el informe.",
+      "why": "Entrega valor temprano sin canibalizar el producto completo y sostiene una conversión basada en beneficio explícito."
+    },
+    {
+      "decision": "Mantener 8 pasos con un input principal por pantalla también en desktop.",
+      "why": "Reduce carga cognitiva, conserva una única analítica del funnel y cumple la regla móvil."
+    },
+    {
+      "decision": "Usar timeline de 24 h + rango de sensibilidad, no gauge de riesgo ni score 0–100.",
+      "why": "Representa directamente los outputs del modelo y evita falsa precisión clínica."
+    },
+    {
+      "decision": "Consentimiento de copia al equipo separado y desactivado por defecto.",
+      "why": "Minimización de datos y privacidad por diseño."
+    }
+  ],
+  "assumptions": [
+    "La página de Notion proporcionada no fue accesible públicamente (404 al fetch); se tomó como fuente de intención el nombre ChronoSleep y la presencia pública chronosleep.app, que describe un quiz de cronotipo de 2 minutos con horarios y energía.",
+    "Se conserva la marca ChronoSleep para continuidad, pero se asume que el usuario controla o puede usar legalmente chronosleep.app; debe verificarse titularidad y clearance de marca.",
+    "El público inicial son adultos 18+; no se diseña para menores en el MVP.",
+    "El producto se posiciona como wellness/planificación educativa, no diagnóstico ni tratamiento de insomnio, apnea u otros trastornos.",
+    "Se evita copiar literalmente el cuestionario MCTQ. Se usan conceptos/fórmulas publicadas y preguntas originales de horarios; si se desea usar el MCTQ completo debe solicitarse permiso según The Worldwide Experimental Platform.",
+    "La fórmula de social jetlag y MSFsc es determinista; el componente 'predictivo' del MVP es una simulación de la próxima semana bajo un horario propuesto, no un LLM ni una promesa clínica.",
+    "Los volúmenes SEO de SEMrush/SearchSpy son estimaciones de terceros y se usan solo como señal de demanda, no como fuente primaria de mercado.",
+    "Precio y conversiones objetivo son hipótesis de negocio para validación, no hechos observados.",
+    "El motor usa una sola latencia de sueño para días de obligación y libres para mantener 8 inputs; debe validarse si ese atajo degrada la precisión.",
+    "El horizonte de 7 días asigna primero workdays_per_week días de obligación y luego días libres; V2 debería aceptar un calendario real.",
+    "La sensibilidad ±15 min por midpoint es un escenario de autorreporte, no un intervalo de confianza.",
+    "El tope de 90 min para mover el horario libre es una restricción de producto preliminar, no una recomendación médica.",
+    "Los precios localizados por PPP son hipótesis de lanzamiento y requieren test de disposición de pago.",
+    "El prototipo usa TV01 como datos de ejemplo y ejecuta localmente la misma aritmética circular/planner del motor verificado.",
+    "Los ratios de contraste documentados se calcularon sobre los tokens críticos y superan WCAG 2.2 AA para texto normal.",
+    "La fase 1 usa email gate; checkout permanece detrás de feature flag hasta cumplir los umbrales de monetizacion.json."
+  ],
+  "open_issues": [
+    "Confirmar titularidad/permiso de uso de la marca ChronoSleep y del dominio chronosleep.app; gate obligatorio antes de go-live.",
+    "Validar en piloto la hipótesis de ±15 min de error de autorreporte y el tope de 90 min del planner.",
+    "Validar utilidad/predictibilidad contra diarios reales; cualquier objetivo de MAE ≤30 min es criterio futuro, no resultado logrado.",
+    "Revalidar precios locales, fees, impuestos y elasticidad antes de activar checkout.",
+    "Definir retención/borrado de informes y base legal por mercado antes de producción.",
+    "Sustituir el patrón simple first-WD-then-FD por calendario real si pruebas de usuario muestran ambigüedad material.",
+    "No copiar el instrumento MCTQ; si se incorporan sus ítems/texto oficiales, solicitar permiso.",
+    "Revisar términos vigentes y consentimiento antes de cualquier integración con Oura/wearables."
+  ],
+  "updated_at": "2026-10-04T20:01:00-05:00",
+  "data_model": {
+    "model_version": "chronosleep-sjl-2.0",
+    "primary_model": "MCTQ-derived mid-sleep + social jetlag circular (shorter interval)",
+    "backup_model": "Jankowski SJLsc circular, sensitivity only",
+    "verified_rows": {
+      "verified": 19,
+      "total": 21,
+      "percent": 90.5,
+      "scope": "Parametros + Tablas_Referencia_SJL + Tablas_PPP; excluye casos generados y precios comerciales"
+    },
+    "test_vectors": 21,
+    "inputs": [
+      "work_bedtime",
+      "sleep_latency_min",
+      "work_wake_time",
+      "free_bedtime",
+      "free_wake_time",
+      "workdays_per_week",
+      "free_day_alarm",
+      "wake_flexibility_min"
+    ],
+    "free_outputs": [
+      "social_jetlag_hours",
+      "weekly_timing_chart",
+      "one_insight"
+    ],
+    "paid_outputs": [
+      "plan_7d",
+      "planned_social_jetlag_hours",
+      "scenario_no_flex",
+      "scenario_more_flex",
+      "input_sensitivity",
+      "msf_sc",
+      "social_jetlag_sleep_corrected_hours",
+      "population_reference",
+      "drivers",
+      "implementation_plan",
+      "methodology"
+    ],
+    "price_anchor": "US$7.90 informe único; PPP launch prices en monetizacion.json",
+    "training": "No aplica; motor determinista de fórmula publicada + tablas oficiales.",
+    "fix_list_agente2_received": false,
+    "qa_status": "double_verified_21_of_21"
+  },
+  "qa_verdict": "PASS_WITH_FIXES",
+  "findings_by_severity": {
+    "CRITICO": {
+      "total": 0,
+      "corrected": 0,
+      "open": 0
+    },
+    "MAYOR": {
+      "total": 7,
+      "corrected": 6,
+      "open": 1
+    },
+    "MENOR": {
+      "total": 3,
+      "corrected": 3,
+      "open": 0
+    }
+  },
+  "double_verification": {
+    "test_vectors_total": 21,
+    "qa_vs_expected": "21/21",
+    "reference_vs_expected": "21/21",
+    "qa_vs_reference": "21/21",
+    "tolerance": "rel/abs 1e-6"
+  },
+  "resolved_issues_stage3": [
+    "Contrato de flexibilidad contradictorio resuelto a entero 0–120.",
+    "Truncamiento silencioso de enteros corregido.",
+    "Brief alineado a simulación determinista y outputs reales; retirados restos de score 0–100.",
+    "Precios MX/ES del brief alineados a monetizacion.json.",
+    "Licencia Arcascope/circadian corregida a MIT.",
+    "Umbrales UX bajo/medio/alto descartados: se usan bandas descriptivas sin lenguaje clínico.",
+    "Flujo de consentimiento de copia al equipo definido con opt-in separado y OFF por defecto."
+  ]
+}

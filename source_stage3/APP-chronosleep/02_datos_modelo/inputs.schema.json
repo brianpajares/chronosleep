@@ -1,0 +1,158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://chronosleep.app/schemas/inputs.schema.json",
+  "title": "ChronoSleep inputs v2.1 (QA-aligned)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "work_bedtime",
+    "sleep_latency_min",
+    "work_wake_time",
+    "free_bedtime",
+    "free_wake_time",
+    "workdays_per_week",
+    "free_day_alarm",
+    "wake_flexibility_min"
+  ],
+  "properties": {
+    "work_bedtime": {
+      "type": "string",
+      "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+      "unit": "HH:MM local",
+      "default": "23:30",
+      "help": {
+        "es": "Hora a la que te acuestas normalmente antes de un día con obligación.",
+        "en": "Usual bedtime before a work/study day.",
+        "pt": "Horário em que você normalmente se deita antes de um dia de trabalho/estudo."
+      },
+      "where_to_find": {
+        "es": "Memoria, calendario o app de alarma.",
+        "en": "Memory, calendar, or alarm app.",
+        "pt": "Memória, calendário ou app de alarme."
+      }
+    },
+    "sleep_latency_min": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 120,
+      "unit": "min",
+      "default": 15,
+      "help": {
+        "es": "Minutos aproximados desde acostarte hasta dormirte; se usa igual para ambos tipos de día.",
+        "en": "Approximate minutes from getting into bed to falling asleep; used for both day types.",
+        "pt": "Minutos aproximados entre deitar e adormecer; usado para os dois tipos de dia."
+      },
+      "where_to_find": {
+        "es": "Estimación personal o app de sueño.",
+        "en": "Personal estimate or sleep app.",
+        "pt": "Estimativa pessoal ou app de sono."
+      }
+    },
+    "work_wake_time": {
+      "type": "string",
+      "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+      "unit": "HH:MM local",
+      "default": "06:45",
+      "help": {
+        "es": "Hora habitual/obligatoria de despertar en días de trabajo o estudio; en el MVP también representa la obligación de la próxima semana.",
+        "en": "Usual/required wake time on work or study days; in the MVP it also represents next week's constraint.",
+        "pt": "Hora habitual/obrigatória de acordar em dias de trabalho/estudo; no MVP também representa a restrição da próxima semana."
+      },
+      "where_to_find": {
+        "es": "Alarma o calendario.",
+        "en": "Alarm or calendar.",
+        "pt": "Alarme ou calendário."
+      }
+    },
+    "free_bedtime": {
+      "type": "string",
+      "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+      "unit": "HH:MM local",
+      "default": "01:00",
+      "help": {
+        "es": "Hora habitual de acostarte antes de un día libre.",
+        "en": "Usual bedtime before a free day.",
+        "pt": "Horário habitual de deitar antes de um dia livre."
+      },
+      "where_to_find": {
+        "es": "Memoria o app de sueño.",
+        "en": "Memory or sleep app.",
+        "pt": "Memória ou app de sono."
+      }
+    },
+    "free_wake_time": {
+      "type": "string",
+      "pattern": "^(?:[01]\\d|2[0-3]):[0-5]\\d$",
+      "unit": "HH:MM local",
+      "default": "09:00",
+      "help": {
+        "es": "Hora habitual de despertar en días libres.",
+        "en": "Usual wake time on free days.",
+        "pt": "Horário habitual de acordar em dias livres."
+      },
+      "where_to_find": {
+        "es": "Memoria o app de sueño.",
+        "en": "Memory or sleep app.",
+        "pt": "Memória ou app de sono."
+      }
+    },
+    "workdays_per_week": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 6,
+      "unit": "días/semana",
+      "default": 5,
+      "help": {
+        "es": "Número de días con obligación por semana. El MVP requiere al menos 1 día libre.",
+        "en": "Number of obligation days per week. The MVP requires at least 1 free day.",
+        "pt": "Número de dias com obrigação por semana. O MVP exige pelo menos 1 dia livre."
+      },
+      "where_to_find": {
+        "es": "Calendario semanal.",
+        "en": "Weekly calendar.",
+        "pt": "Calendário semanal."
+      }
+    },
+    "free_day_alarm": {
+      "type": "boolean",
+      "default": false,
+      "help": {
+        "es": "Indica si normalmente necesitas alarma para despertarte en días libres. Si es sí, no se muestra MSFsc.",
+        "en": "Whether you normally use an alarm on free days. If yes, MSFsc is not shown.",
+        "pt": "Se você normalmente usa alarme nos dias livres. Se sim, o MSFsc não é mostrado."
+      },
+      "where_to_find": {
+        "es": "App de alarma o memoria.",
+        "en": "Alarm app or memory.",
+        "pt": "App de alarme ou memória."
+      }
+    },
+    "wake_flexibility_min": {
+      "type": "integer",
+      "unit": "min",
+      "default": 0,
+      "help": {
+        "es": "Cuántos minutos puedes mover tu horario laboral (0–120) sin romper tus obligaciones.",
+        "en": "How many minutes you can shift your work-day schedule (0–120) without breaking obligations.",
+        "pt": "Quantos minutos você pode deslocar seu horário de trabalho (0–120) sem quebrar suas obrigações."
+      },
+      "where_to_find": {
+        "es": "Agenda laboral/estudios y tiempo de traslado.",
+        "en": "Work/study calendar and commute needs.",
+        "pt": "Agenda de trabalho/estudo e deslocamento."
+      },
+      "minimum": 0,
+      "maximum": 120
+    }
+  },
+  "x-cross-field-validations": [
+    "El motor rechaza duraciones implícitas de sueño <3 h o >14 h.",
+    "workdays_per_week=7 queda fuera del MVP porque no hay días libres para calcular SJL.",
+    "Los horarios se interpretan en hora local y se admite cruce de medianoche.",
+    "El MVP no está diseñado para turnos nocturnos/rotativos; si el patrón no es estable, abstenerse y derivar a V2."
+  ],
+  "x-unit-conversion": {
+    "metric_imperial": "No aplica: todas las magnitudes son tiempo.",
+    "hhmm_to_minutes": "minutes = 60*HH + MM; aritmética circular módulo 1440."
+  }
+}

@@ -1,0 +1,2210 @@
+[
+  {
+    "case_id": "TV01",
+    "metadata": {
+      "label": "US_typical",
+      "country_context": "USA"
+    },
+    "inputs": {
+      "work_bedtime": "23:30",
+      "sleep_latency_min": 15,
+      "work_wake_time": "06:45",
+      "free_bedtime": "01:00",
+      "free_wake_time": "09:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:45",
+        "sleep_onset_free": "01:15",
+        "sleep_duration_work_hours": 7.0,
+        "sleep_duration_free_hours": 7.75,
+        "sleep_duration_week_hours": 7.2143,
+        "mid_sleep_work": "03:15",
+        "mid_sleep_free": "05:08",
+        "msf_sc": "04:51",
+        "social_jetlag_relative_hours": 1.875,
+        "social_jetlag_hours": 1.875,
+        "social_jetlag_sleep_corrected_hours": 1.5,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 30,
+        "free_shift_minutes": -82,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "23:38",
+            "wake_time": "07:38",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:38",
+            "wake_time": "07:38",
+            "sleep_duration_hours": 7.75
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.375,
+        "high_hours": 2.375
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV02",
+    "metadata": {
+      "label": "BR_late_schedule",
+      "country_context": "BRA"
+    },
+    "inputs": {
+      "work_bedtime": "00:30",
+      "sleep_latency_min": 20,
+      "work_wake_time": "07:30",
+      "free_bedtime": "02:00",
+      "free_wake_time": "10:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 60
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "00:50",
+        "sleep_onset_free": "02:20",
+        "sleep_duration_work_hours": 6.6667,
+        "sleep_duration_free_hours": 7.6667,
+        "sleep_duration_week_hours": 6.9524,
+        "mid_sleep_work": "04:10",
+        "mid_sleep_free": "06:10",
+        "msf_sc": "05:49",
+        "social_jetlag_relative_hours": 2.0,
+        "social_jetlag_hours": 2.0,
+        "social_jetlag_sleep_corrected_hours": 1.5,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 60,
+        "free_shift_minutes": -60,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.6667
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.6667
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.6667
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.6667
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.6667
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "09:00",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "09:00",
+            "sleep_duration_hours": 7.6667
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.5,
+        "high_hours": 2.5
+      },
+      "warnings": [
+        "El promedio semanal estimado (6.95 h) está por debajo de 7 h; el plan de alineación no sustituye una evaluación del tiempo total de sueño."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV03",
+    "metadata": {
+      "label": "UK_early_schedule",
+      "country_context": "GBR"
+    },
+    "inputs": {
+      "work_bedtime": "22:45",
+      "sleep_latency_min": 10,
+      "work_wake_time": "06:15",
+      "free_bedtime": "23:30",
+      "free_wake_time": "07:30",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "22:55",
+        "sleep_onset_free": "23:40",
+        "sleep_duration_work_hours": 7.3333,
+        "sleep_duration_free_hours": 7.8333,
+        "sleep_duration_week_hours": 7.4762,
+        "mid_sleep_work": "02:35",
+        "mid_sleep_free": "03:35",
+        "msf_sc": "03:24",
+        "social_jetlag_relative_hours": 1.0,
+        "social_jetlag_hours": 1.0,
+        "social_jetlag_sleep_corrected_hours": 0.75,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 30,
+        "free_shift_minutes": -30,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "23:15",
+            "wake_time": "06:45",
+            "sleep_duration_hours": 7.3333
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "23:15",
+            "wake_time": "06:45",
+            "sleep_duration_hours": 7.3333
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "23:15",
+            "wake_time": "06:45",
+            "sleep_duration_hours": 7.3333
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "23:15",
+            "wake_time": "06:45",
+            "sleep_duration_hours": 7.3333
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "23:15",
+            "wake_time": "06:45",
+            "sleep_duration_hours": 7.3333
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.8333
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.8333
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.5,
+        "high_hours": 1.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV04",
+    "metadata": {
+      "label": "zero_social_jetlag"
+    },
+    "inputs": {
+      "work_bedtime": "23:00",
+      "sleep_latency_min": 15,
+      "work_wake_time": "07:00",
+      "free_bedtime": "23:00",
+      "free_wake_time": "07:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:15",
+        "sleep_onset_free": "23:15",
+        "sleep_duration_work_hours": 7.75,
+        "sleep_duration_free_hours": 7.75,
+        "sleep_duration_week_hours": 7.75,
+        "mid_sleep_work": "03:08",
+        "mid_sleep_free": "03:08",
+        "msf_sc": "03:08",
+        "social_jetlag_relative_hours": 0.0,
+        "social_jetlag_hours": 0.0,
+        "social_jetlag_sleep_corrected_hours": 0.0,
+        "reference_band": "menos_de_1h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.0,
+        "high_hours": 0.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV05",
+    "metadata": {
+      "label": "cross_midnight_midpoints"
+    },
+    "inputs": {
+      "work_bedtime": "21:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "05:00",
+      "free_bedtime": "23:00",
+      "free_wake_time": "07:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "21:00",
+        "sleep_onset_free": "23:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "01:00",
+        "mid_sleep_free": "03:00",
+        "msf_sc": "03:00",
+        "social_jetlag_relative_hours": 2.0,
+        "social_jetlag_hours": 2.0,
+        "social_jetlag_sleep_corrected_hours": 2.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 30,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "21:30",
+            "wake_time": "05:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.5,
+        "high_hours": 2.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV06",
+    "metadata": {
+      "label": "negative_relative_sjl"
+    },
+    "inputs": {
+      "work_bedtime": "01:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "09:00",
+      "free_bedtime": "23:00",
+      "free_wake_time": "07:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "01:00",
+        "sleep_onset_free": "23:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "05:00",
+        "mid_sleep_free": "03:00",
+        "msf_sc": "03:00",
+        "social_jetlag_relative_hours": -2.0,
+        "social_jetlag_hours": 2.0,
+        "social_jetlag_sleep_corrected_hours": 2.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": -30,
+        "free_shift_minutes": 90,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.5,
+        "high_hours": 2.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV07",
+    "metadata": {
+      "label": "max_latency_120min"
+    },
+    "inputs": {
+      "work_bedtime": "21:00",
+      "sleep_latency_min": 120,
+      "work_wake_time": "07:00",
+      "free_bedtime": "22:00",
+      "free_wake_time": "08:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 60
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:00",
+        "sleep_onset_free": "00:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "03:00",
+        "mid_sleep_free": "04:00",
+        "msf_sc": "04:00",
+        "social_jetlag_relative_hours": 1.0,
+        "social_jetlag_hours": 1.0,
+        "social_jetlag_sleep_corrected_hours": 1.0,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 60,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "22:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.5,
+        "high_hours": 1.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV08",
+    "metadata": {
+      "label": "min_workdays_1"
+    },
+    "inputs": {
+      "work_bedtime": "23:00",
+      "sleep_latency_min": 20,
+      "work_wake_time": "06:30",
+      "free_bedtime": "00:30",
+      "free_wake_time": "08:30",
+      "workdays_per_week": 1,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 45
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:20",
+        "sleep_onset_free": "00:50",
+        "sleep_duration_work_hours": 7.1667,
+        "sleep_duration_free_hours": 7.6667,
+        "sleep_duration_week_hours": 7.5952,
+        "mid_sleep_work": "02:55",
+        "mid_sleep_free": "04:40",
+        "msf_sc": "04:38",
+        "social_jetlag_relative_hours": 1.75,
+        "social_jetlag_hours": 1.75,
+        "social_jetlag_sleep_corrected_hours": 1.5,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 45,
+        "free_shift_minutes": -60,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "23:45",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.1667
+          },
+          {
+            "day": 2,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 3,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 4,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 5,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.6667
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.25,
+        "high_hours": 2.25
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV09",
+    "metadata": {
+      "label": "max_workdays_6"
+    },
+    "inputs": {
+      "work_bedtime": "23:15",
+      "sleep_latency_min": 15,
+      "work_wake_time": "06:30",
+      "free_bedtime": "01:15",
+      "free_wake_time": "09:00",
+      "workdays_per_week": 6,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 45
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:30",
+        "sleep_onset_free": "01:30",
+        "sleep_duration_work_hours": 7.0,
+        "sleep_duration_free_hours": 7.5,
+        "sleep_duration_week_hours": 7.0714,
+        "mid_sleep_work": "03:00",
+        "mid_sleep_free": "05:15",
+        "msf_sc": "05:02",
+        "social_jetlag_relative_hours": 2.25,
+        "social_jetlag_hours": 2.25,
+        "social_jetlag_sleep_corrected_hours": 2.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 45,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 6,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "07:15",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:45",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.5
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.75,
+        "high_hours": 2.75
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV10",
+    "metadata": {
+      "label": "max_wake_flexibility_120"
+    },
+    "inputs": {
+      "work_bedtime": "23:30",
+      "sleep_latency_min": 10,
+      "work_wake_time": "06:30",
+      "free_bedtime": "02:00",
+      "free_wake_time": "10:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 120
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:40",
+        "sleep_onset_free": "02:10",
+        "sleep_duration_work_hours": 6.8333,
+        "sleep_duration_free_hours": 7.8333,
+        "sleep_duration_week_hours": 7.119,
+        "mid_sleep_work": "03:05",
+        "mid_sleep_free": "06:05",
+        "msf_sc": "05:44",
+        "social_jetlag_relative_hours": 3.0,
+        "social_jetlag_hours": 3.0,
+        "social_jetlag_sleep_corrected_hours": 2.5,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 120,
+        "free_shift_minutes": -60,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.8333
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.8333
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.8333
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.8333
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "01:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 6.8333
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "09:00",
+            "sleep_duration_hours": 7.8333
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "09:00",
+            "sleep_duration_hours": 7.8333
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 2.5,
+        "high_hours": 3.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV11",
+    "metadata": {
+      "label": "free_day_alarm_true"
+    },
+    "inputs": {
+      "work_bedtime": "23:45",
+      "sleep_latency_min": 15,
+      "work_wake_time": "07:00",
+      "free_bedtime": "00:45",
+      "free_wake_time": "08:30",
+      "workdays_per_week": 5,
+      "free_day_alarm": true,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "00:00",
+        "sleep_onset_free": "01:00",
+        "sleep_duration_work_hours": 7.0,
+        "sleep_duration_free_hours": 7.5,
+        "sleep_duration_week_hours": 7.1429,
+        "mid_sleep_work": "03:30",
+        "mid_sleep_free": "04:45",
+        "msf_sc": null,
+        "social_jetlag_relative_hours": 1.25,
+        "social_jetlag_hours": 1.25,
+        "social_jetlag_sleep_corrected_hours": 1.0,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 30,
+        "free_shift_minutes": -45,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "00:15",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "00:15",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "00:15",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "00:15",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "00:15",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 7.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "00:00",
+            "wake_time": "07:45",
+            "sleep_duration_hours": 7.5
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "00:00",
+            "wake_time": "07:45",
+            "sleep_duration_hours": 7.5
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.75,
+        "high_hours": 1.75
+      },
+      "warnings": [
+        "MSFsc no se calcula cuando se usa alarma en días libres."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV12",
+    "metadata": {
+      "label": "short_sleep_warning"
+    },
+    "inputs": {
+      "work_bedtime": "01:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "05:00",
+      "free_bedtime": "01:00",
+      "free_wake_time": "05:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "01:00",
+        "sleep_onset_free": "01:00",
+        "sleep_duration_work_hours": 4.0,
+        "sleep_duration_free_hours": 4.0,
+        "sleep_duration_week_hours": 4.0,
+        "mid_sleep_work": "03:00",
+        "mid_sleep_free": "03:00",
+        "msf_sc": "03:00",
+        "social_jetlag_relative_hours": 0.0,
+        "social_jetlag_hours": 0.0,
+        "social_jetlag_sleep_corrected_hours": 0.0,
+        "reference_band": "menos_de_1h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "05:00",
+            "sleep_duration_hours": 4.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.0,
+        "high_hours": 0.5
+      },
+      "warnings": [
+        "El promedio semanal estimado (4.00 h) está por debajo de 7 h; el plan de alineación no sustituye una evaluación del tiempo total de sueño."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV13",
+    "metadata": {
+      "label": "long_sleep_warning"
+    },
+    "inputs": {
+      "work_bedtime": "20:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "08:00",
+      "free_bedtime": "20:00",
+      "free_wake_time": "08:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "20:00",
+        "sleep_onset_free": "20:00",
+        "sleep_duration_work_hours": 12.0,
+        "sleep_duration_free_hours": 12.0,
+        "sleep_duration_week_hours": 12.0,
+        "mid_sleep_work": "02:00",
+        "mid_sleep_free": "02:00",
+        "msf_sc": "02:00",
+        "social_jetlag_relative_hours": 0.0,
+        "social_jetlag_hours": 0.0,
+        "social_jetlag_sleep_corrected_hours": 0.0,
+        "reference_band": "menos_de_1h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "20:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 12.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.0,
+        "high_hours": 0.5
+      },
+      "warnings": [
+        "Duración de sueño muy alta; revisar que las horas ingresadas sean correctas."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV14",
+    "metadata": {
+      "label": "large_positive_sjl_cap_test"
+    },
+    "inputs": {
+      "work_bedtime": "22:30",
+      "sleep_latency_min": 15,
+      "work_wake_time": "06:30",
+      "free_bedtime": "03:30",
+      "free_wake_time": "11:30",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 30
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "22:45",
+        "sleep_onset_free": "03:45",
+        "sleep_duration_work_hours": 7.75,
+        "sleep_duration_free_hours": 7.75,
+        "sleep_duration_week_hours": 7.75,
+        "mid_sleep_work": "02:38",
+        "mid_sleep_free": "07:38",
+        "msf_sc": "07:38",
+        "social_jetlag_relative_hours": 5.0,
+        "social_jetlag_hours": 5.0,
+        "social_jetlag_sleep_corrected_hours": 5.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 30,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 3.0,
+        "planned_social_jetlag_relative_hours": 3.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "23:00",
+            "wake_time": "07:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 4.5,
+        "high_hours": 5.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV15",
+    "metadata": {
+      "label": "large_negative_sjl"
+    },
+    "inputs": {
+      "work_bedtime": "03:00",
+      "sleep_latency_min": 15,
+      "work_wake_time": "11:00",
+      "free_bedtime": "22:30",
+      "free_wake_time": "06:30",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 60
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "03:15",
+        "sleep_onset_free": "22:45",
+        "sleep_duration_work_hours": 7.75,
+        "sleep_duration_free_hours": 7.75,
+        "sleep_duration_week_hours": 7.75,
+        "mid_sleep_work": "07:08",
+        "mid_sleep_free": "02:38",
+        "msf_sc": "02:38",
+        "social_jetlag_relative_hours": -4.5,
+        "social_jetlag_hours": 4.5,
+        "social_jetlag_sleep_corrected_hours": 4.5,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": -60,
+        "free_shift_minutes": 90,
+        "planned_social_jetlag_hours": 2.0,
+        "planned_social_jetlag_relative_hours": -2.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "02:00",
+            "wake_time": "10:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 7.75
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 7.75
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 4.0,
+        "high_hours": 5.0
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV16",
+    "metadata": {
+      "label": "published_rOpenSci_scalar_example",
+      "published_reference": "https://docs.ropensci.org/mctq/reference/sjl.html",
+      "published_expected_social_jetlag_hours": 1.5
+    },
+    "inputs": {
+      "work_bedtime": "23:30",
+      "sleep_latency_min": 0,
+      "work_wake_time": "07:30",
+      "free_bedtime": "01:00",
+      "free_wake_time": "09:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "23:30",
+        "sleep_onset_free": "01:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "03:30",
+        "mid_sleep_free": "05:00",
+        "msf_sc": "05:00",
+        "social_jetlag_relative_hours": 1.5,
+        "social_jetlag_hours": 1.5,
+        "social_jetlag_sleep_corrected_hours": 1.5,
+        "reference_band": "1h_a_menos_de_2h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "23:30",
+            "wake_time": "07:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 1.0,
+        "high_hours": 2.0
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV17",
+    "metadata": {
+      "label": "exact_12h_circular_tie",
+      "qa_added": true
+    },
+    "inputs": {
+      "work_bedtime": "20:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "04:00",
+      "free_bedtime": "08:00",
+      "free_wake_time": "16:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 120
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "20:00",
+        "sleep_onset_free": "08:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "00:00",
+        "mid_sleep_free": "12:00",
+        "msf_sc": "12:00",
+        "social_jetlag_relative_hours": 12.0,
+        "social_jetlag_hours": 12.0,
+        "social_jetlag_sleep_corrected_hours": 12.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 120,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 8.5,
+        "planned_social_jetlag_relative_hours": 8.5,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "06:30",
+            "wake_time": "14:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "06:30",
+            "wake_time": "14:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 11.5,
+        "high_hours": 12.0
+      },
+      "warnings": [
+        "Desfase muy alto para el alcance del MVP; revisar inputs y considerar orientación profesional si persiste."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV18",
+    "metadata": {
+      "label": "minimum_valid_sleep_3h",
+      "qa_added": true
+    },
+    "inputs": {
+      "work_bedtime": "01:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "04:00",
+      "free_bedtime": "01:00",
+      "free_wake_time": "04:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "01:00",
+        "sleep_onset_free": "01:00",
+        "sleep_duration_work_hours": 3.0,
+        "sleep_duration_free_hours": 3.0,
+        "sleep_duration_week_hours": 3.0,
+        "mid_sleep_work": "02:30",
+        "mid_sleep_free": "02:30",
+        "msf_sc": "02:30",
+        "social_jetlag_relative_hours": 0.0,
+        "social_jetlag_hours": 0.0,
+        "social_jetlag_sleep_corrected_hours": 0.0,
+        "reference_band": "menos_de_1h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "01:00",
+            "wake_time": "04:00",
+            "sleep_duration_hours": 3.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.0,
+        "high_hours": 0.5
+      },
+      "warnings": [
+        "El promedio semanal estimado (3.00 h) está por debajo de 7 h; el plan de alineación no sustituye una evaluación del tiempo total de sueño."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV19",
+    "metadata": {
+      "label": "maximum_valid_sleep_14h",
+      "qa_added": true
+    },
+    "inputs": {
+      "work_bedtime": "18:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "08:00",
+      "free_bedtime": "18:00",
+      "free_wake_time": "08:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "18:00",
+        "sleep_onset_free": "18:00",
+        "sleep_duration_work_hours": 14.0,
+        "sleep_duration_free_hours": 14.0,
+        "sleep_duration_week_hours": 14.0,
+        "mid_sleep_work": "01:00",
+        "mid_sleep_free": "01:00",
+        "msf_sc": "01:00",
+        "social_jetlag_relative_hours": 0.0,
+        "social_jetlag_hours": 0.0,
+        "social_jetlag_sleep_corrected_hours": 0.0,
+        "reference_band": "menos_de_1h"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": 0,
+        "planned_social_jetlag_hours": 0.0,
+        "planned_social_jetlag_relative_hours": 0.0,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "18:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 14.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 0.0,
+        "high_hours": 0.5
+      },
+      "warnings": [
+        "Duración de sueño muy alta; revisar que las horas ingresadas sean correctas."
+      ],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV20",
+    "metadata": {
+      "label": "monotonicity_flex_0",
+      "qa_added": true
+    },
+    "inputs": {
+      "work_bedtime": "22:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "06:00",
+      "free_bedtime": "02:00",
+      "free_wake_time": "10:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 0
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "22:00",
+        "sleep_onset_free": "02:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "02:00",
+        "mid_sleep_free": "06:00",
+        "msf_sc": "06:00",
+        "social_jetlag_relative_hours": 4.0,
+        "social_jetlag_hours": 4.0,
+        "social_jetlag_sleep_corrected_hours": 4.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 0,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 2.5,
+        "planned_social_jetlag_relative_hours": 2.5,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "22:00",
+            "wake_time": "06:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 3.5,
+        "high_hours": 4.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  },
+  {
+    "case_id": "TV21",
+    "metadata": {
+      "label": "monotonicity_flex_120",
+      "qa_added": true
+    },
+    "inputs": {
+      "work_bedtime": "22:00",
+      "sleep_latency_min": 0,
+      "work_wake_time": "06:00",
+      "free_bedtime": "02:00",
+      "free_wake_time": "10:00",
+      "workdays_per_week": 5,
+      "free_day_alarm": false,
+      "wake_flexibility_min": 120
+    },
+    "expected_outputs": {
+      "model_version": "chronosleep-sjl-2.0",
+      "current": {
+        "sleep_onset_work": "22:00",
+        "sleep_onset_free": "02:00",
+        "sleep_duration_work_hours": 8.0,
+        "sleep_duration_free_hours": 8.0,
+        "sleep_duration_week_hours": 8.0,
+        "mid_sleep_work": "02:00",
+        "mid_sleep_free": "06:00",
+        "msf_sc": "06:00",
+        "social_jetlag_relative_hours": 4.0,
+        "social_jetlag_hours": 4.0,
+        "social_jetlag_sleep_corrected_hours": 4.0,
+        "reference_band": "2h_o_mas"
+      },
+      "plan": {
+        "work_shift_minutes": 120,
+        "free_shift_minutes": -90,
+        "planned_social_jetlag_hours": 0.5,
+        "planned_social_jetlag_relative_hours": 0.5,
+        "schedule_7d": [
+          {
+            "day": 1,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 2,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 3,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 4,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 5,
+            "day_type": "work",
+            "bedtime": "00:00",
+            "wake_time": "08:00",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 6,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          },
+          {
+            "day": 7,
+            "day_type": "free",
+            "bedtime": "00:30",
+            "wake_time": "08:30",
+            "sleep_duration_hours": 8.0
+          }
+        ],
+        "assumption": "adherencia inmediata al horario; no modela adaptación fisiológica ni DLMO"
+      },
+      "uncertainty": {
+        "type": "worst_case_input_timing_scenario",
+        "assumption": "cada midpoint puede desplazarse ±15 min por redondeo/autorreporte",
+        "low_hours": 3.5,
+        "high_hours": 4.5
+      },
+      "warnings": [],
+      "methodology": {
+        "primary_metric": "absolute circular difference between MSF and MSW",
+        "backup_metric": "Jankowski sleep-corrected SJL with shorter circular interval; disputed, sensitivity only",
+        "msfsc_role": "chronotype proxy only; not used as the primary SJL metric",
+        "planner": "deterministic schedule simulation preserving observed sleep durations"
+      }
+    }
+  }
+]

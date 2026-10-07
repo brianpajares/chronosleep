@@ -1,0 +1,155 @@
+{
+  "version": "2.1",
+  "principle": "La cifra principal siempre sale de engine_reference.py; un LLM solo puede redactar narrativa a partir de outputs estructurados.",
+  "free_preview": {
+    "access": "GRATIS",
+    "results": [
+      {
+        "id": "social_jetlag_hours",
+        "origin": "current.social_jetlag_hours",
+        "unit": "h",
+        "format": "X h YY min",
+        "description": "Cifra principal: diferencia circular absoluta entre MSF y MSW."
+      },
+      {
+        "id": "weekly_timing_chart",
+        "origin": "current.mid_sleep_work + current.mid_sleep_free",
+        "unit": "HH:MM",
+        "format": "gráfico simple de dos midpoints",
+        "description": "Visual de horario laboral vs libre; sin inferir fase biológica."
+      },
+      {
+        "id": "one_insight",
+        "origin": "rules on SJL + sleep duration + alarm",
+        "unit": null,
+        "format": "1 frase",
+        "description": "Insight descriptivo no clínico, por ejemplo cuál de los dos horarios explica más el desfase."
+      }
+    ]
+  },
+  "full_report": {
+    "access": "INFORME_COMPLETO",
+    "results": [
+      {
+        "id": "plan_7d",
+        "origin": "plan.schedule_7d",
+        "unit": "HH:MM",
+        "format": "tabla Día 1–7",
+        "description": "Horario propuesto preservando duración observada."
+      },
+      {
+        "id": "planned_social_jetlag_hours",
+        "origin": "plan.planned_social_jetlag_hours",
+        "unit": "h",
+        "format": "X h YY min",
+        "description": "SJL de calendario bajo adherencia al plan."
+      },
+      {
+        "id": "scenario_no_flex",
+        "origin": "recalculate wake_flexibility_min=0",
+        "unit": "h",
+        "format": "escenario",
+        "description": "Qué pasa si no puede mover el horario laboral."
+      },
+      {
+        "id": "scenario_more_flex",
+        "origin": "recalculate wake_flexibility_min=min(current+30,120)",
+        "unit": "h",
+        "format": "escenario",
+        "description": "Valor marginal de 30 min adicionales de flexibilidad, sin exceder 120 min."
+      },
+      {
+        "id": "input_sensitivity",
+        "origin": "uncertainty",
+        "unit": "h",
+        "format": "rango escenario",
+        "description": "No es IC estadístico; muestra sensibilidad a ±15 min de autorreporte por midpoint."
+      },
+      {
+        "id": "msf_sc",
+        "origin": "current.msf_sc",
+        "unit": "HH:MM",
+        "format": "hora local o 'no disponible'",
+        "description": "Proxy temporal de cronotipo; solo si no usa alarma libre."
+      },
+      {
+        "id": "population_reference",
+        "origin": "current.reference_band + Tablas_Referencia_SJL",
+        "unit": "categoría/prevalencia",
+        "format": "<1h, 1–<2h, ≥2h",
+        "description": "Comparativa descriptiva con NHANES EE. UU.; no percentil clínico."
+      },
+      {
+        "id": "drivers",
+        "origin": "derived from work/free midpoints, durations and plan shifts",
+        "unit": "min/h",
+        "format": "top 3",
+        "description": "Diferencia de midpoint, compensación de sueño y flexibilidad disponible."
+      },
+      {
+        "id": "implementation_plan",
+        "origin": "plan.schedule_7d + warnings",
+        "unit": null,
+        "format": "acciones Día 1–7",
+        "description": "Qué horario seguir y qué señales requieren revisar inputs o buscar orientación profesional."
+      },
+      {
+        "id": "methodology",
+        "origin": "model_spec.json + model_card.md",
+        "unit": null,
+        "format": "sección breve",
+        "description": "Fórmula, supuestos, límites y fuentes."
+      },
+      {
+        "id": "social_jetlag_sleep_corrected_hours",
+        "origin": "current.social_jetlag_sleep_corrected_hours",
+        "unit": "h",
+        "format": "X h YY min",
+        "description": "Respaldo metodológico Jankowski SJLsc; se muestra como comparación de sensibilidad, nunca como cifra principal."
+      }
+    ]
+  },
+  "subscription": {
+    "access": "SUSCRIPCION_V2",
+    "enabled_in_mvp": false,
+    "only_if_recurrent_need": true,
+    "results": [
+      "Recalcular automáticamente cuando cambie el turno/calendario.",
+      "Alertas de cambio de horario y comparación semana a semana.",
+      "Importación opcional de diarios/wearables para regularidad y calibración personal."
+    ]
+  },
+  "not_free": [
+    {
+      "item": "plan diario completo",
+      "why": "Es el entregable accionable principal y resuelve el 'qué hago mañana'."
+    },
+    {
+      "item": "escenarios de flexibilidad",
+      "why": "Muestran el valor de negociar/cambiar horario y crean una comparación útil antes de comprar."
+    },
+    {
+      "item": "sensibilidad + MSFsc + metodología detallada",
+      "why": "Aumentan confianza y permiten auditar el resultado sin saturar la vista previa."
+    },
+    {
+      "item": "comparativa poblacional completa y drivers",
+      "why": "Transforman una cifra aislada en contexto y explicación."
+    }
+  ],
+  "safety": {
+    "never_show_as": [
+      "diagnóstico",
+      "tratamiento",
+      "prescripción",
+      "DLMO predicho",
+      "hora 'perfecta' de sueño"
+    ],
+    "abstain_or_warn_if": [
+      "turnos rotativos/nocturnos",
+      "duración implícita <3h o >14h",
+      "workdays_per_week=7",
+      "SJL>=6h sin confirmar inputs"
+    ]
+  }
+}

@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: ChronoSleep API
+  version: 4.0.0
+  description: API server-side para cálculo, solicitudes, entrega, administración, privacidad y Stripe.
+servers:
+  - url: /
+security: []
+tags:
+  - name: Public
+  - name: Reports
+  - name: Admin
+  - name: Payments
+  - name: Privacy
+  - name: Ops
+paths:
+  /api/calculate:
+    post:
+      tags: [Public]
+      operationId: calculate
+      summary: Valida inputs y calcula preview/full domain object sin persistir email.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CalculateRequest'}
+      responses:
+        '200':
+          description: Cálculo correcto.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CalculateResponse'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '429': {$ref: '#/components/responses/RateLimited'}
+  /api/report-requests:
+    post:
+      tags: [Reports]
+      operationId: createReportRequest
+      summary: Guarda lead, genera PDF y ejecuta flujo validation; en stripe crea estado pendiente según modo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ReportRequest'}
+      responses:
+        '201':
+          description: Solicitud creada.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ReportRequestResponse'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '429': {$ref: '#/components/responses/RateLimited'}
+  /api/reports/{id}:
+    get:
+      tags: [Reports]
+      operationId: getReport
+      summary: Devuelve informe autorizado por token expirable.
+      parameters:
+        - {$ref: '#/components/parameters/ReportId'}
+        - name: token
+          in: query
+          required: true
+          schema: {type: string, minLength: 20}
+      responses:
+        '200':
+          description: Informe.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Report'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /api/admin/leads:
+    get:
+      tags: [Admin]
+      operationId: listLeads
+      security: [{adminSession: []}]
+      parameters:
+        - name: cursor
+          in: query
+          schema: {type: string}
+        - name: status
+          in: query
+          schema: {type: string}
+      responses:
+        '200':
+          description: Leads paginados.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: {$ref: '#/components/schemas/AdminLead'}
+                  next_cursor: {type: [string, 'null']}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+  /api/admin/leads/{id}/approve:
+    post:
+      tags: [Admin]
+      operationId: approveLead
+      security: [{adminSession: []}]
+      parameters:
+        - {$ref: '#/components/parameters/LeadId'}
+      responses:
+        '200':
+          description: Entrega aprobada/encolada.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ActionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /api/admin/leads/{id}/resend:
+    post:
+      tags: [Admin]
+      operationId: resendLead
+      security: [{adminSession: []}]
+      parameters:
+        - {$ref: '#/components/parameters/LeadId'}
+      responses:
+        '200':
+          description: Reenvío encolado.
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ActionResponse'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /api/checkout/session:
+    post:
+      tags: [Payments]
+      operationId: createCheckoutSession
+      summary: Disponible solo cuando MONETIZATION_MODE=stripe.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [report_request_id]
+              properties:
+                report_request_id: {type: string, format: uuid}
+                locale: {type: string, enum: [es, en, pt]}
+                country_code: {type: string, pattern: '^[A-Z]{2}$'}
+      responses:
+        '201':
+          description: Stripe Checkout Session.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [checkout_url]
+                properties:
+                  checkout_url: {type: string, format: uri}
+        '404':
+          description: Endpoint oculto/deshabilitado en validation.
+        '409':
+          description: Pedido ya pagado o sesión no aplicable.
+  /api/stripe/webhook:
+    post:
+      tags: [Payments]
+      operationId: stripeWebhook
+      summary: Verifica firma e idempotencia.
+      parameters:
+        - name: Stripe-Signature
+          in: header
+          required: true
+          schema: {type: string}
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {type: object, additionalProperties: true}
+      responses:
+        '200':
+          description: Evento aceptado o ya procesado.
+        '400':
+          description: Firma/payload inválido.
+  /api/privacy/requests:
+    post:
+      tags: [Privacy]
+      operationId: createPrivacyRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, request_type, locale, turnstile_token]
+              properties:
+                email: {type: string, format: email}
+                request_type: {type: string, enum: [access, correction, deletion, portability, objection]}
+                locale: {type: string, enum: [es, en, pt]}
+                turnstile_token: {type: string}
+      responses:
+        '202':
+          description: Solicitud recibida; identidad se verifica por canal separado.
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '429': {$ref: '#/components/responses/RateLimited'}
+  /api/health:
+    get:
+      tags: [Ops]
+      operationId: health
+      responses:
+        '200':
+          description: App y DB disponibles; Drive puede estar degraded si existe LKG.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status, db, drive]
+                properties:
+                  status: {type: string, enum: [ok, degraded]}
+                  db: {type: string, enum: [ok]}
+                  drive: {type: string, enum: [ok, degraded]}
+                  model_version: {type: string}
+components:
+  securitySchemes:
+    adminSession:
+      type: apiKey
+      in: cookie
+      name: sb-auth-token
+  parameters:
+    ReportId:
+      name: id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    LeadId:
+      name: id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  responses:
+    BadRequest:
+      description: Input inválido.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    Unauthorized:
+      description: No autorizado.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    NotFound:
+      description: No encontrado.
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    RateLimited:
+      description: Rate limit excedido.
+      headers:
+        Retry-After:
+          schema: {type: integer}
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+  schemas:
+    Error:
+      type: object
+      required: [error, request_id]
+      properties:
+        error: {type: string}
+        code: {type: string}
+        request_id: {type: string}
+    Inputs:
+      type: object
+      additionalProperties: false
+      required: [work_bedtime, sleep_latency_min, work_wake_time, free_bedtime, free_wake_time, workdays_per_week, free_day_alarm, wake_flexibility_min]
+      properties:
+        work_bedtime: {$ref: '#/components/schemas/TimeHHMM'}
+        sleep_latency_min: {type: integer, minimum: 0, maximum: 120}
+        work_wake_time: {$ref: '#/components/schemas/TimeHHMM'}
+        free_bedtime: {$ref: '#/components/schemas/TimeHHMM'}
+        free_wake_time: {$ref: '#/components/schemas/TimeHHMM'}
+        workdays_per_week: {type: integer, minimum: 1, maximum: 6}
+        free_day_alarm: {type: boolean}
+        wake_flexibility_min: {type: integer, minimum: 0, maximum: 120}
+    TimeHHMM:
+      type: string
+      pattern: '^(?:[01]\d|2[0-3]):[0-5]\d$'
+      examples: ['23:30']
+    CalculateRequest:
+      type: object
+      required: [inputs, locale]
+      properties:
+        inputs: {$ref: '#/components/schemas/Inputs'}
+        locale: {type: string, enum: [es, en, pt]}
+    CalculateResponse:
+      type: object
+      required: [calculation_id, model_version, preview, domain, request_id]
+      properties:
+        calculation_id: {type: string, format: uuid}
+        model_version: {type: string, const: chronosleep-sjl-2.0}
+        preview:
+          type: object
+          required: [social_jetlag_hours, mid_sleep_work, mid_sleep_free]
+          properties:
+            social_jetlag_hours: {type: number, minimum: 0, maximum: 12}
+            mid_sleep_work: {$ref: '#/components/schemas/TimeHHMM'}
+            mid_sleep_free: {$ref: '#/components/schemas/TimeHHMM'}
+            direction: {type: string, enum: [earlier, aligned, later]}
+        domain:
+          type: object
+          additionalProperties: true
+          description: Objeto exacto del motor; contract tests lo comparan con test_vectors.
+        request_id: {type: string}
+    ReportRequest:
+      type: object
+      required: [calculation_id, email, consent_report, consent_owner_copy, locale, turnstile_token]
+      properties:
+        calculation_id: {type: string, format: uuid}
+        email: {type: string, format: email, maxLength: 320}
+        consent_report: {type: boolean, const: true}
+        consent_owner_copy: {type: boolean, default: false}
+        waitlist_subscription: {type: boolean, default: false}
+        locale: {type: string, enum: [es, en, pt]}
+        turnstile_token: {type: string}
+    ReportRequestResponse:
+      type: object
+      required: [id, status, mode]
+      properties:
+        id: {type: string, format: uuid}
+        status: {type: string, enum: [requested, awaiting_owner, awaiting_payment, ready]}
+        mode: {type: string, enum: [validation, stripe]}
+    Report:
+      type: object
+      required: [id, model_version, report_version, outputs]
+      properties:
+        id: {type: string, format: uuid}
+        model_version: {type: string}
+        report_version: {type: string}
+        outputs: {type: object, additionalProperties: true}
+        pdf_url: {type: [string, 'null'], format: uri}
+        ics_url: {type: [string, 'null'], format: uri}
+    AdminLead:
+      type: object
+      required: [id, created_at, status, locale, consent_owner_copy]
+      properties:
+        id: {type: string, format: uuid}
+        created_at: {type: string, format: date-time}
+        status: {type: string}
+        locale: {type: string}
+        consent_owner_copy: {type: boolean}
+        email_masked: {type: string, examples: ['u***@example.test']}
+        sjl_band: {type: string}
+    ActionResponse:
+      type: object
+      required: [ok, id]
+      properties:
+        ok: {type: boolean}
+        id: {type: string, format: uuid}

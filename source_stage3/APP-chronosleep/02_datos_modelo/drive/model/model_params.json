@@ -1,0 +1,9 @@
+{
+  "model_version": "chronosleep-sjl-2.0",
+  "planner_max_free_shift_min": 90,
+  "input_time_uncertainty_min": 15,
+  "status": {
+    "planner_max_free_shift_min": "preliminar",
+    "input_time_uncertainty_min": "preliminar"
+  }
+}

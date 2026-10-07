@@ -1,0 +1,385 @@
+{
+  "version": "3.0",
+  "verdict": "PASS_WITH_FIXES",
+  "checks": [
+    {
+      "check": "P0_stage_completed",
+      "resultado": "PASS",
+      "evidencia": "handoff.json: stage_completed=2 al ingreso",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "P0_archivos_esperados",
+      "resultado": "PASS",
+      "evidencia": "Presentes brief.json, model_spec.json, engine_reference.py, test_vectors.json, inputs.schema.json, outputs_spec.json, monetizacion.json, model_card.md, fuentes_datos.csv y base_chronosleep.xlsx.",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "P0_manifest_hashes",
+      "resultado": "PASS",
+      "evidencia": "Hashes de drive_manifest.json coincidían al ingreso para los artefactos inventariados.",
+      "severidad": "CRÍTICO",
+      "acción": "Manifest se regenerará al cierre de Etapa 3."
+    },
+    {
+      "check": "P0_excel_hojas",
+      "resultado": "PASS",
+      "evidencia": "LEEME, Diccionario, Parametros, Tablas_Referencia_SJL, Tablas_PPP, Fuentes, Changelog, Motor y Casos_Prueba presentes.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "P0_excel_errores_formula",
+      "resultado": "PASS",
+      "evidencia": "Barrido de celdas críticas sin #REF!, #DIV/0!, #VALUE!, #N/A ni #NAME?.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A1_independencia",
+      "resultado": "PASS",
+      "evidencia": "qa_engine.py fue implementado desde model_spec.json + Excel antes de inspeccionar engine_reference.py.",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A1_vectores_esperado_vs_qa",
+      "resultado": "PASS",
+      "evidencia": "21/21 vectores, tolerancia rel/abs 1e-6.",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A1_vectores_esperado_vs_referencia",
+      "resultado": "PASS",
+      "evidencia": "21/21 vectores, tolerancia rel/abs 1e-6.",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A1_qa_vs_referencia",
+      "resultado": "PASS",
+      "evidencia": "21/21 outputs completos idénticos bajo comparación numérica 1e-6.",
+      "severidad": "CRÍTICO",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A1_contrato_flexibilidad",
+      "resultado": "FIXED",
+      "evidencia": "TV08/TV09 usaban 45 min mientras schema/model_spec enumeraban 0/30/60/90/120; motor aceptaba cualquier entero 0–120.",
+      "severidad": "MAYOR",
+      "acción": "Alineados model_spec, inputs.schema y Excel a entero 0–120; se conservan vectores 45 min."
+    },
+    {
+      "check": "A2_enteros_estrictos",
+      "resultado": "FIXED",
+      "evidencia": "engine_reference hacía int() y podía truncar 5.9 días silenciosamente.",
+      "severidad": "MAYOR",
+      "acción": "Validación estricta de entero finito; bool, decimal, NaN e infinito se rechazan."
+    },
+    {
+      "check": "A2_horas_invalidas",
+      "resultado": "PASS",
+      "evidencia": "24:00 rechazado por ambos motores.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A2_rangos",
+      "resultado": "PASS",
+      "evidencia": "latencia/flex fuera 0–120 y workdays fuera 1–6 rechazados.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A2_duracion_sueno",
+      "resultado": "PASS",
+      "evidencia": "Duraciones implícitas <3 h o >14 h se rechazan; TV18/TV19 cubren límites exactos 3 h y 14 h.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A2_nan_inf",
+      "resultado": "PASS",
+      "evidencia": "NaN e infinito rechazados en inputs numéricos.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A2_unidades",
+      "resultado": "PASS",
+      "evidencia": "Todos los inputs son hora HH:MM, minutos, días/semana o booleanos; no existen magnitudes métricas/imperiales.",
+      "severidad": "MENOR",
+      "acción": "UX etiqueta unidades explícitamente."
+    },
+    {
+      "check": "A2_circular_12h",
+      "resultado": "PASS",
+      "evidencia": "TV17 cubre empate circular exacto de 12 h y mantiene resultado determinista.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A2_monotonicidad_flex",
+      "resultado": "PASS",
+      "evidencia": "TV20→TV21: flexibilidad 0→120 min reduce SJL planificado 2.5→0.5 h, sin invertir la mejora.",
+      "severidad": "MAYOR",
+      "acción": "Ninguna."
+    },
+    {
+      "check": "A3_fuentes_criticas",
+      "resultado": "PASS_WITH_FIX",
+      "evidencia": "17 verificaciones documentadas en qa_report.md; Arcascope fue corregida de Apache-2.0 a MIT.",
+      "severidad": "MAYOR",
+      "acción": "fuentes_datos.csv y Excel actualizados."
+    },
+    {
+      "check": "A3_mctq_permiso",
+      "resultado": "PASS_WITH_GUARDRAIL",
+      "evidencia": "TheWeP indica solicitar permiso para usar el cuestionario MCTQ.",
+      "severidad": "MAYOR",
+      "acción": "No copiar ítems del MCTQ; mantener preguntas originales. model_card actualizado."
+    },
+    {
+      "check": "A4_promesa_modelo",
+      "resultado": "FIXED",
+      "evidencia": "Brief mezclaba lenguaje de predicción con score 0–100 ya retirado por Etapa 2.",
+      "severidad": "MAYOR",
+      "acción": "Brief JSON/MD alineado a simulación determinista de calendario y outputs reales."
+    },
+    {
+      "check": "A4_precios",
+      "resultado": "FIXED",
+      "evidencia": "Brief conservaba precios MX/ES distintos a monetizacion.json.",
+      "severidad": "MAYOR",
+      "acción": "Brief alineado a MX$89 y €4.90; resto del pricing queda preliminar hasta elasticidad."
+    },
+    {
+      "check": "A4_free_vs_paid",
+      "resultado": "PASS",
+      "evidencia": "Gratis muestra SJL actual + lectura simple; pago/informe agrega plan 7d, escenarios, sensibilidad, supuestos y exportación.",
+      "severidad": "MAYOR",
+      "acción": "Preview bloquea suficiente contenido para mostrar valor sin regalar el informe."
+    },
+    {
+      "check": "A5_salud",
+      "resultado": "PASS_WITH_GUARDRAIL",
+      "evidencia": "Producto wellness 18+, no diagnóstico; no estima DLMO ni recomienda fármacos/melatonina.",
+      "severidad": "CRÍTICO",
+      "acción": "Disclaimer visible en preview e informe; alertas de seguridad remiten a profesional."
+    },
+    {
+      "check": "A5_minimizacion_datos",
+      "resultado": "PASS_WITH_FIX",
+      "evidencia": "No se requiere nombre, DOB ni datos clínicos; copia al propietario separada.",
+      "severidad": "MAYOR",
+      "acción": "UX deja consentimiento de copia al propietario desactivado por defecto; email solo al solicitar informe."
+    },
+    {
+      "check": "A5_sesgo_poblacional",
+      "resultado": "PASS_WITH_GUARDRAIL",
+      "evidencia": "Bandas NHANES proceden de población de EE. UU.; no se tratan como diagnóstico ni riesgo individual.",
+      "severidad": "MAYOR",
+      "acción": "Etiqueta 'referencia poblacional de EE. UU.' y evita ranking por país/sexo/edad."
+    },
+    {
+      "check": "A5_marketing",
+      "resultado": "PASS_WITH_FIX",
+      "evidencia": "Se eliminaron promesas de 'alineación circadiana exacta' o score universal.",
+      "severidad": "MAYOR",
+      "acción": "Copy promete cuantificar desfase de horarios y simular alternativas, no optimizar biología."
+    },
+    {
+      "check": "A5_marca",
+      "resultado": "OPEN",
+      "evidencia": "No hay prueba en el paquete de titularidad/clearance de ChronoSleep o chronosleep.app.",
+      "severidad": "MAYOR",
+      "acción": "Gate de lanzamiento: verificación legal de marca/dominio antes de publicación; no bloquea arquitectura/PRD."
+    },
+    {
+      "check": "B4_tiempo_valor",
+      "resultado": "PASS",
+      "evidencia": "Flujo diseñado a 8 inputs, un input por pantalla móvil, valores por defecto y preview objetivo <90 s.",
+      "severidad": "MAYOR",
+      "acción": "Medir tiempo mediano a preview en analytics."
+    },
+    {
+      "check": "B5_contraste",
+      "resultado": "PASS",
+      "evidencia": "Ratios calculados: texto 17.74:1, muted 7.56:1, primary sobre blanco 7.27:1, link 6.70:1.",
+      "severidad": "MAYOR",
+      "acción": "Tokens congelados en design_tokens.json."
+    },
+    {
+      "check": "B6_wcag",
+      "resultado": "PASS_SPEC",
+      "evidencia": "WCAG 2.2 AA especificado: teclado, foco visible, labels, errores textuales, reduced-motion, targets >=44px.",
+      "severidad": "MAYOR",
+      "acción": "Agente 4/LLM debe convertirlo en criterios de aceptación automatizables."
+    },
+    {
+      "check": "B8_prototipo_motor",
+      "resultado": "PASS",
+      "evidencia": "prototype.html usa la misma aritmética circular y planner verificado; datos iniciales reproducen TV01.",
+      "severidad": "MAYOR",
+      "acción": "Smoke test local y sin dependencias externas al cierre."
+    }
+  ],
+  "source_verifications": [
+    {
+      "id": "SRC01",
+      "tema": "Definición/cálculo de social jetlag y uso de intervalo circular corto",
+      "valor": "SJL = diferencia de mid-sleep; shorter circular interval for clock time",
+      "estado": "verificado",
+      "evidencia": "https://docs.ropensci.org/mctq/reference/sjl.html",
+      "licencia": "Paquete mctq: MIT",
+      "impacto": "Fundamento del motor principal."
+    },
+    {
+      "id": "SRC02",
+      "tema": "Corrección MSFsc",
+      "valor": "Corrección de MSF por deuda de sueño; no usar si hay alarma en día libre",
+      "estado": "verificado",
+      "evidencia": "https://docs.ropensci.org/mctq/reference/msf_sc.html",
+      "licencia": "Paquete mctq: MIT",
+      "impacto": "Output secundario."
+    },
+    {
+      "id": "SRC03",
+      "tema": "SJL corregido por sueño (Jankowski)",
+      "valor": "Fórmula de sensibilidad SJLsc",
+      "estado": "verificado",
+      "evidencia": "https://docs.ropensci.org/mctq/reference/sjl_sc.html",
+      "licencia": "Paquete mctq: MIT",
+      "impacto": "Modelo de respaldo/sensibilidad, no cifra principal."
+    },
+    {
+      "id": "SRC04",
+      "tema": "NHANES: media de social jetlag",
+      "valor": "1.10 h",
+      "estado": "verificado",
+      "evidencia": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2798209",
+      "licencia": "Artículo disponible bajo CC BY",
+      "impacto": "Referencia poblacional, no umbral diagnóstico."
+    },
+    {
+      "id": "SRC05",
+      "tema": "NHANES: prevalencia SJL >=1 h",
+      "valor": "46.5%",
+      "estado": "verificado",
+      "evidencia": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2798209",
+      "licencia": "CC BY",
+      "impacto": "Referencia poblacional."
+    },
+    {
+      "id": "SRC06",
+      "tema": "NHANES: prevalencia SJL >=2 h",
+      "valor": "19.3%",
+      "estado": "verificado",
+      "evidencia": "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2798209",
+      "licencia": "CC BY",
+      "impacto": "Referencia poblacional."
+    },
+    {
+      "id": "SRC07",
+      "tema": "Sueño recomendado en adultos 18–60",
+      "valor": ">=7 h/noche",
+      "estado": "verificado",
+      "evidencia": "https://www.cdc.gov/sleep/about/index.html",
+      "licencia": "Fuente pública CDC; reutilización sujeta a políticas del sitio",
+      "impacto": "Warning educativo, no prescripción."
+    },
+    {
+      "id": "SRC08",
+      "tema": "Validez convergente MSFsc MCTQ vs actigrafía",
+      "valor": "r=0.73 en el estudio citado",
+      "estado": "verificado",
+      "evidencia": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5971234/",
+      "licencia": "CC BY",
+      "impacto": "Soporta uso como proxy con límites individuales."
+    },
+    {
+      "id": "SRC09",
+      "tema": "Relación proxy cronotipo vs DLMO",
+      "valor": "r≈0.68 en la evidencia citada",
+      "estado": "verificado",
+      "evidencia": "https://pubmed.ncbi.nlm.nih.gov/18533325/",
+      "licencia": "Metadatos PubMed; no implica licencia de reutilización del artículo",
+      "impacto": "Justifica no prometer fase circadiana exacta."
+    },
+    {
+      "id": "SRC10",
+      "tema": "World Bank PPP México 2025",
+      "valor": "11.31 MXN por int.$ aprox. para consumo privado",
+      "estado": "verificado",
+      "evidencia": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP?locations=MX",
+      "licencia": "World Bank Data: CC BY 4.0 salvo indicación contraria",
+      "impacto": "Precio local MX$89."
+    },
+    {
+      "id": "SRC11",
+      "tema": "World Bank PPP España 2025",
+      "valor": "0.61 EUR por int.$ aprox.",
+      "estado": "verificado",
+      "evidencia": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP?locations=ES",
+      "licencia": "CC BY 4.0 salvo indicación contraria",
+      "impacto": "Precio local €4.90."
+    },
+    {
+      "id": "SRC12",
+      "tema": "World Bank PPP Brasil/Reino Unido/Canadá/Australia 2025",
+      "valor": "BR 2.58; GB 0.70; CA 1.26; AU 1.46 (valores usados por monetización)",
+      "estado": "verificado",
+      "evidencia": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+      "licencia": "CC BY 4.0 salvo indicación contraria",
+      "impacto": "Localización de precios."
+    },
+    {
+      "id": "SRC13",
+      "tema": "Stripe pricing US",
+      "valor": "2.9% + US$0.30 para tarjetas domésticas online en pricing estándar consultado",
+      "estado": "verificado",
+      "evidencia": "https://stripe.com/pricing",
+      "licencia": "Información comercial; no dataset abierto",
+      "impacto": "Economía unitaria preliminar."
+    },
+    {
+      "id": "SRC14",
+      "tema": "Arcascope/circadian",
+      "valor": "Licencia actual del repositorio",
+      "estado": "corregido",
+      "evidencia": "https://github.com/Arcascope/circadian",
+      "licencia": "MIT",
+      "impacto": "Catálogo decía Apache-2.0; se corrigió a MIT."
+    },
+    {
+      "id": "SRC15",
+      "tema": "PhysioNet BIDSleep",
+      "valor": "Dataset/licencia para posible investigación futura",
+      "estado": "verificado",
+      "evidencia": "https://physionet.org/content/bidsleep/",
+      "licencia": "ODC-By",
+      "impacto": "Puede apoyar validación futura; no se usa para personalización MVP."
+    },
+    {
+      "id": "SRC16",
+      "tema": "Oura API",
+      "valor": "Términos API vigentes consultados (2026)",
+      "estado": "verificado",
+      "evidencia": "https://cloud.ouraring.com/docs/terms",
+      "licencia": "Propietaria/restrictiva; revisar límites de uso, IA y datos antes de integrar",
+      "impacto": "No incorporar datos Oura al MVP sin revisión contractual."
+    },
+    {
+      "id": "SRC17",
+      "tema": "MCTQ oficial / The Worldwide Experimental Platform",
+      "valor": "El sitio oficial pide solicitar permiso para usar el cuestionario",
+      "estado": "verificado",
+      "evidencia": "https://www.thewep.org/documentations/mctq",
+      "licencia": "Instrumento/documentación con copyright; permiso requerido para el cuestionario",
+      "impacto": "ChronoSleep mantiene preguntas propias y no copia el instrumento."
+    }
+  ]
+}

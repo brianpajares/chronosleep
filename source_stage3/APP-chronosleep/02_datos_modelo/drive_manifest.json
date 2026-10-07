@@ -1,0 +1,71 @@
+{
+  "app": "ChronoSleep",
+  "slug": "chronosleep",
+  "version": "3.0",
+  "generated_at": "2026-10-04",
+  "files": [
+    {
+      "file": "base_chronosleep.xlsx",
+      "drive_path": "/Apps/chronosleep/base/base_chronosleep.xlsx",
+      "purpose": "Base de conocimiento con parámetros, tablas, motor Excel y casos de prueba",
+      "format": "xlsx",
+      "reader": "app+build",
+      "sha256": "c28440908cb93ffb474973ef711791b6c9ce28d49da4b646fb46762ff453104e",
+      "version": "3.0"
+    },
+    {
+      "file": "fuentes_datos.csv",
+      "drive_path": "/Apps/chronosleep/base/fuentes_datos.csv",
+      "purpose": "Catálogo de fuentes verificadas/licencias",
+      "format": "csv",
+      "reader": "build",
+      "sha256": "ad8ebadef5642283816c1069a698df2b2585a935547328ae3ad2c9291bb65f85",
+      "version": "3.0"
+    },
+    {
+      "file": "model_spec.json",
+      "drive_path": "/Apps/chronosleep/model/model_spec.json",
+      "purpose": "Especificación exacta del modelo",
+      "format": "json",
+      "reader": "app+build",
+      "sha256": "fd7d9732cb63b1db94d1bd647e2e95954f45a5f80ccb50796484a4a3bad744fb",
+      "version": "3.0"
+    },
+    {
+      "file": "model_params.json",
+      "drive_path": "/Apps/chronosleep/model/model_params.json",
+      "purpose": "Parámetros de producto del motor",
+      "format": "json",
+      "reader": "app+build",
+      "sha256": "95498de2b55c61053e1278c80ed13a8f9d4c1938fd77eb38c577c7a97d29781b",
+      "version": "3.0"
+    },
+    {
+      "file": "test_vectors.json",
+      "drive_path": "/Apps/chronosleep/model/test_vectors.json",
+      "purpose": "Vectores de regresión generados por el motor",
+      "format": "json",
+      "reader": "build",
+      "sha256": "662197e533288e1d80fdf3e710569974caad74024877726c8bd3c51175af3125",
+      "version": "3.0"
+    },
+    {
+      "file": "informe_template.md",
+      "drive_path": "/Apps/chronosleep/templates/informe_template.md",
+      "purpose": "Estructura del informe completo",
+      "format": "markdown",
+      "reader": "build",
+      "sha256": "7772eed2cf9278ac95e0d326ed7a2b30c9ac90d7f7bb4f457181d60ab52dd44e",
+      "version": "3.0"
+    },
+    {
+      "file": "model_card.md",
+      "drive_path": "/Apps/chronosleep/docs/model_card.md",
+      "purpose": "Página pública Cómo funciona",
+      "format": "markdown",
+      "reader": "app+build",
+      "sha256": "5eaab3d123cf345c19d99828dbfc8b09c0a06c900cad01190a25a6cc2cbcf96f",
+      "version": "3.0"
+    }
+  ]
+}

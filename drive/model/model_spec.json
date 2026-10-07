@@ -1,0 +1,170 @@
+{
+  "app": "ChronoSleep",
+  "slug": "chronosleep",
+  "model_version": "chronosleep-sjl-2.0",
+  "objective": "Cuantificar el desfase de horario (social jetlag) entre días con obligación y días libres, y simular un horario de 7 días que lo reduzca sin cambiar la duración de sueño observada.",
+  "target": "expected_schedule_social_jetlag_hours_next_7d_under_adherence",
+  "target_interpretation": "Es una simulación determinista del horario si se cumple el plan, no una predicción fisiológica de DLMO ni un diagnóstico.",
+  "primary_model": "MCTQ-derived midsleep + absolute circular SJL, con MSFsc solo como proxy de cronotipo",
+  "backup_model": "Jankowski sleep-corrected SJL para análisis de sensibilidad metodológica; no sustituye el principal en MVP.",
+  "notation": {
+    "SO_W": "sleep onset en días de trabajo, hora local",
+    "SO_F": "sleep onset en días libres, hora local",
+    "SD_W": "duración de sueño en días de trabajo, h",
+    "SD_F": "duración de sueño en días libres, h",
+    "WD": "días de trabajo por semana, 1..6",
+    "FD": "7-WD",
+    "MSW": "mid-sleep en días de trabajo",
+    "MSF": "mid-sleep en días libres",
+    "SD_week": "duración media semanal",
+    "MSFsc": "MSF corregido por oversleep/deuda",
+    "SJL_rel": "diferencia circular firmada MSF-MSW",
+    "SJL": "|SJL_rel|"
+  },
+  "formula_exacta": [
+    "SO_W = (bedtime_W + latency) mod 24h",
+    "SO_F = (bedtime_F + latency) mod 24h",
+    "SD_W = (wake_W - SO_W) mod 24h",
+    "SD_F = (wake_F - SO_F) mod 24h",
+    "MSW = (SO_W + SD_W/2) mod 24h",
+    "MSF = (SO_F + SD_F/2) mod 24h",
+    "SD_week = (WD*SD_W + (7-WD)*SD_F)/7",
+    "si alarm_F=true: MSFsc = NA",
+    "si alarm_F=false y SD_F<=SD_W: MSFsc = MSF",
+    "si alarm_F=false y SD_F>SD_W: MSFsc = (MSF - (SD_F-SD_week)/2) mod 24h",
+    "wrap12(x)=((x+12) mod 24)-12; para empate exacto de 12h se usa +12h",
+    "SJL_rel = wrap12(MSF-MSW)",
+    "SJL = abs(SJL_rel)"
+  ],
+  "planner_formula": [
+    "need_min = 60*SJL",
+    "direction = sign(SJL_rel)",
+    "work_shift_min = direction * min(need_min, wake_flexibility_min)",
+    "remaining_min = max(0, need_min - abs(work_shift_min))",
+    "free_shift_min = -direction * min(remaining_min, planner_max_free_shift_min)",
+    "MSW_plan = MSW + work_shift_min",
+    "MSF_plan = MSF + free_shift_min",
+    "SJL_plan = abs(wrap12(MSF_plan-MSW_plan))",
+    "Bedtime y wake se desplazan juntos dentro de cada tipo de día, por lo que SD_W y SD_F se conservan."
+  ],
+  "pseudocode": [
+    "validar 8 inputs y convertir HH:MM a minutos",
+    "calcular onset, duraciones, MSW, MSF y SD_week",
+    "calcular SJL con intervalo circular más corto",
+    "calcular MSFsc solo si no hay alarma libre",
+    "usar primero la flexibilidad declarada del horario laboral; después mover horario libre en sentido opuesto, con tope de base",
+    "generar 7 días: primeros WD como work y restantes como free (supuesto de patrón simple)",
+    "generar escenario de sensibilidad por error de autorreporte",
+    "emitir warnings; no emitir diagnóstico ni tratamiento"
+  ],
+  "variables": [
+    {
+      "name": "work_bedtime",
+      "unit": "HH:MM",
+      "range": "00:00–23:59"
+    },
+    {
+      "name": "sleep_latency_min",
+      "unit": "min",
+      "range": "0–120"
+    },
+    {
+      "name": "work_wake_time",
+      "unit": "HH:MM",
+      "range": "00:00–23:59"
+    },
+    {
+      "name": "free_bedtime",
+      "unit": "HH:MM",
+      "range": "00:00–23:59"
+    },
+    {
+      "name": "free_wake_time",
+      "unit": "HH:MM",
+      "range": "00:00–23:59"
+    },
+    {
+      "name": "workdays_per_week",
+      "unit": "days/week",
+      "range": "1–6"
+    },
+    {
+      "name": "free_day_alarm",
+      "unit": "boolean",
+      "range": "true/false"
+    },
+    {
+      "name": "wake_flexibility_min",
+      "unit": "min",
+      "range": "0–120 (entero)"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "input_time_uncertainty_min",
+      "value": 15,
+      "unit": "min",
+      "status": "preliminar",
+      "source": "supuesto conservador de sensibilidad de autorreporte; no es un IC estadístico"
+    },
+    {
+      "name": "planner_max_free_shift_min",
+      "value": 90,
+      "unit": "min",
+      "status": "preliminar",
+      "source": "restricción de producto para evitar planes extremos; requiere validación de UX"
+    },
+    {
+      "name": "adult_sleep_min_hours",
+      "value": 7,
+      "unit": "h/día",
+      "status": "verificado",
+      "source": "https://www.cdc.gov/sleep/about/index.html"
+    }
+  ],
+  "uncertainty": {
+    "type": "scenario_not_confidence_interval",
+    "formula": "low=max(0,SJL-2*u/60); high=min(12,SJL+2*u/60), con u=input_time_uncertainty_min",
+    "meaning": "peor caso simple si cada midpoint reportado se desplaza ±u minutos",
+    "limitation": "no cuantifica variabilidad biológica ni error individual real"
+  },
+  "sensitivity": [
+    "El SJL cambia 1:1 con diferencias relativas de los midpoints.",
+    "La latencia común a ambos tipos de día tiende a cancelarse en SJL; sí afecta duraciones.",
+    "wake_flexibility_min reduce SJL_plan minuto por minuto hasta agotar SJL o la flexibilidad.",
+    "planner_max_free_shift_min limita cuánto puede reducirse el residual cuando la flexibilidad laboral no basta."
+  ],
+  "range_of_validity": [
+    "Adultos 18+ con patrón relativamente estable de 1–6 días de obligación y al menos 1 día libre.",
+    "No diseñado para turnos nocturnos/rotativos, split sleep, viajes con cambio de huso ni sueño polifásico.",
+    "Duraciones implícitas aceptadas por el motor: 3–14 h por episodio; fuera de rango se abstiene.",
+    "MSFsc no se muestra cuando se usa alarma en días libres.",
+    "El plan presupone adherencia inmediata; no modela adaptación circadiana fisiológica."
+  ],
+  "assumptions": [
+    "Una sola latencia de sueño representa razonablemente ambos tipos de día para reducir fricción.",
+    "Los primeros WD días del horizonte se tratan como días de obligación y el resto como libres; V2 debe recibir calendario real.",
+    "El usuario interpreta horas en su zona local sin DST dentro del horizonte.",
+    "La comparación poblacional de 1h/2h es descriptiva y no clínica."
+  ],
+  "sources": [
+    "https://docs.ropensci.org/mctq/reference/msf_sc.html",
+    "https://docs.ropensci.org/mctq/reference/sjl.html",
+    "https://docs.ropensci.org/mctq/articles/sjl-computation.html",
+    "https://pmc.ncbi.nlm.nih.gov/articles/PMC5971234/",
+    "https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2798209",
+    "https://docs.ropensci.org/mctq/reference/sjl_sc.html"
+  ],
+  "backup_model_spec": {
+    "name": "Jankowski sleep-corrected social jetlag (SJLsc), shorter circular implementation",
+    "role": "sensibilidad metodológica solamente; no cifra principal ni clínica",
+    "formula_exacta": [
+      "SE_W = work_wake_time; SE_F = free_wake_time",
+      "si SD_W > SD_F y SE_W <= SE_F: SJLsc = abs(shorter_circular(SE_F-SE_W))",
+      "en otro caso: SJLsc = abs(shorter_circular(SO_F-SO_W))"
+    ],
+    "caveat": "La alternativa de Jankowski es discutida en la literatura; se conserva solo como respaldo/sensibilidad.",
+    "source": "https://docs.ropensci.org/mctq/reference/sjl_sc.html"
+  },
+  "qa_revision": "stage3-2026-10-04"
+}

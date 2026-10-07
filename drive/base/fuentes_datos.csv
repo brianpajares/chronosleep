@@ -1,0 +1,15 @@
+id,dato,url,licencia,fecha,estado
+S01,Fórmula SJL y método circular recomendado,https://docs.ropensci.org/mctq/reference/sjl.html,MIT (software mctq),2026-10-04,verificado
+S02,Fórmula MSFsc y regla de alarma,https://docs.ropensci.org/mctq/reference/msf_sc.html,MIT (software mctq),2026-10-04,verificado
+S03,Licencia del paquete mctq,https://docs.ropensci.org/mctq/LICENSE.html,MIT,2026-10-04,verificado
+S04,Validación MSFsc vs actigrafía r=0.73,https://pmc.ncbi.nlm.nih.gov/articles/PMC5971234/,Artículo open access; se usa solo evidencia/cita,2026-10-04,verificado
+S05,MSFsc vs DLMO r=0.68,https://pubmed.ncbi.nlm.nih.gov/26243627/,Referencia bibliográfica; no se redistribuye contenido,2026-10-04,verificado
+S06,NHANES SJL 1.10h; 46.5% >=1h; 19.3% >=2h,https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2798209,CC BY,2026-10-04,verificado
+S07,Recomendación adultos 18-60: >=7h,https://www.cdc.gov/sleep/about/index.html,Gobierno de EE. UU.; dato factual,2026-10-04,verificado
+S08,PPP consumo privado 2025 por país,https://data.worldbank.org/indicator/PA.NUS.PRVT.PP,CC BY 4.0,2026-10-04,verificado
+S09,Stripe US 2.9% + US$0.30 tarjeta doméstica online,https://stripe.com/pricing,Términos/precio público; solo estimación de costes,2026-10-04,verificado
+S10,Arcascope circadian models,https://github.com/Arcascope/circadian,MIT (LICENSE actual del repositorio; settings.ini conserva metadato apache2 obsoleto),2026-10-04,corregido
+S11,PhysioNet BIDSleep dataset license,https://www.physionet.org/content/bidsleep-dataset/1.0.1/LICENSE.txt,ODC-By; uso comercial explícito,2026-10-04,verificado
+S12,Oura API agreement,https://cloud.ouraring.com/legal/api-agreement,Propietaria; descartada como motor,2026-10-04,verificado
+S13,Fórmula Jankowski SJLsc (respaldo) y método circular,https://docs.ropensci.org/mctq/reference/sjl_sc.html,MIT (software mctq); fórmula publicada,2026-10-04,verificado
+S14,Permiso para usar el cuestionario MCTQ completo/ítems oficiales,https://www.thewep.org/documentations/mctq/item/mctq,Instrumento con copyright; TheWeP solicita pedir permiso para su uso,2026-10-04,verificado

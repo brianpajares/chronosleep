@@ -1,0 +1,201 @@
+{
+  "version": "2.0",
+  "phase_1_validation": {
+    "checkout_enabled": false,
+    "form_title": {
+      "es": "Recibe tu informe completo",
+      "en": "Get your full report",
+      "pt": "Receba seu relatório completo"
+    },
+    "fields": [
+      "email",
+      "consentimiento_envio_informe",
+      "consentimiento_copia_al_propietario_separado"
+    ],
+    "data_minimization": "La copia al propietario incluye inputs de horarios, outputs y PDF/HTML solo con consentimiento explícito; no pedir nombre legal, fecha de nacimiento ni datos clínicos.",
+    "owner_copy": "Enviar copia del lead/informe solo si el consentimiento específico está activado.",
+    "traction_metrics": [
+      {
+        "metric": "visita_a_inicio",
+        "threshold": ">=35%"
+      },
+      {
+        "metric": "inicio_a_preview",
+        "threshold": ">=70%"
+      },
+      {
+        "metric": "preview_a_email",
+        "threshold": ">=30%"
+      },
+      {
+        "metric": "intencion_pago_o_checkout",
+        "threshold": ">=8% de quienes solicitan informe"
+      },
+      {
+        "metric": "tiempo_mediano_a_preview",
+        "threshold": "<=90 s"
+      }
+    ],
+    "activate_payment_when": "Durante al menos 2 semanas o >=200 previews, preview→email >=30% y señal de pago >=8%, sin deterioro material de completitud."
+  },
+  "phase_2_payment": {
+    "base_anchor_usd": 7.9,
+    "ppp_method": "Precio PPP equivalente = US$7.90 × PA.NUS.PRVT.PP (World Bank, household/private consumption, 2025), luego redondeo comercial.",
+    "ppp_source": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+    "prices": [
+      {
+        "country": "Estados Unidos",
+        "currency": "USD",
+        "factor": 1.0,
+        "recommended": 7.9,
+        "ppp_equivalent_of_us_7_90": 7.9,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "US",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "Brasil",
+        "currency": "BRL",
+        "factor": 2.58,
+        "recommended": 19.9,
+        "ppp_equivalent_of_us_7_90": 20.38,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "BR",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "Reino Unido",
+        "currency": "GBP",
+        "factor": 0.7,
+        "recommended": 5.9,
+        "ppp_equivalent_of_us_7_90": 5.53,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "GB",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "Canadá",
+        "currency": "CAD",
+        "factor": 1.26,
+        "recommended": 9.9,
+        "ppp_equivalent_of_us_7_90": 9.95,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "CA",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "Australia",
+        "currency": "AUD",
+        "factor": 1.46,
+        "recommended": 11.9,
+        "ppp_equivalent_of_us_7_90": 11.53,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "AU",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "México",
+        "currency": "MXN",
+        "factor": 11.31,
+        "recommended": 89.0,
+        "ppp_equivalent_of_us_7_90": 89.35,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "MX",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      },
+      {
+        "country": "España",
+        "currency": "EUR",
+        "factor": 0.61,
+        "recommended": 4.9,
+        "ppp_equivalent_of_us_7_90": 4.82,
+        "year": 2025,
+        "source_url": "https://data.worldbank.org/indicator/PA.NUS.PRVT.PP",
+        "status": "verificado",
+        "code": "ES",
+        "price_status": "preliminar_hasta_test_de_elasticidad"
+      }
+    ],
+    "bundles": [
+      {
+        "name": "Pareja/roommates",
+        "offer": "segundo informe -50%",
+        "rationale": "mismo momento de compra, coste marginal casi nulo"
+      },
+      {
+        "name": "Replanificación",
+        "offer": "~35–45% del precio de un informe",
+        "rationale": "nuevo horario, mismo usuario; validar recurrencia"
+      }
+    ],
+    "upsells": [
+      "Exportación de calendario (.ics) incluida en informe completo, no como cobro separado.",
+      "V2 suscripción solo para turnos/cambios recurrentes; ancla US$3.90/mes y localizar por PPP.",
+      "B2B2C piloto para empleadores con turnos solo después de validación legal y del modelo."
+    ],
+    "affiliates": "No activar afiliados de suplementos/fármacos. Solo considerar productos/servicios de bajo riesgo y claramente separados del resultado científico."
+  },
+  "unit_economics": {
+    "us_example": {
+      "report_price_usd": 7.9,
+      "stripe_domestic_card_fee_assumption": "2.9% + US$0.30 por transacción exitosa; fuente consultada 2026-10-04",
+      "stripe_source": "https://stripe.com/pricing",
+      "stripe_fee_usd": 0.5291,
+      "delivery_compute_email_pdf_upper_estimate_usd": 0.1,
+      "delivery_cost_status": "preliminar; depende del stack final",
+      "contribution_margin_before_paid_acquisition": 0.9204,
+      "contribution_margin_percent": 92.0
+    },
+    "notes": "No se extrapolan fees de Stripe de EE. UU. a otros países. Confirmar tarifas y métodos locales antes del lanzamiento."
+  },
+  "pricing_tests": [
+    {
+      "market": "US",
+      "ladder": [
+        6.9,
+        7.9,
+        9.9
+      ],
+      "currency": "USD"
+    },
+    {
+      "market": "BR",
+      "ladder": [
+        16.9,
+        19.9,
+        24.9
+      ],
+      "currency": "BRL"
+    },
+    {
+      "market": "MX",
+      "ladder": [
+        79,
+        89,
+        99
+      ],
+      "currency": "MXN"
+    },
+    {
+      "market": "ES",
+      "ladder": [
+        4.9,
+        5.9,
+        6.9
+      ],
+      "currency": "EUR"
+    }
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "meta": {
+    "version": "3.0",
+    "principles": [
+      "No enviar email, horarios HH:MM exactos ni texto libre a analytics.",
+      "Preferir eventos agregados/categorizados.",
+      "Separar analytics de datos necesarios para generar el informe.",
+      "No registrar datos de tarjeta."
+    ]
+  },
+  "events": [
+    {
+      "event": "landing_view",
+      "when": "landing visible",
+      "props": [
+        "locale",
+        "country_code_if_explicit",
+        "referrer_group",
+        "experiment_ids"
+      ]
+    },
+    {
+      "event": "calculator_start",
+      "when": "CTA landing",
+      "props": [
+        "locale",
+        "source_page"
+      ]
+    },
+    {
+      "event": "step_view",
+      "when": "se muestra paso",
+      "props": [
+        "step",
+        "field",
+        "locale"
+      ]
+    },
+    {
+      "event": "input_changed",
+      "when": "input válido cambia",
+      "props": [
+        "field",
+        "bucket_optional"
+      ],
+      "privacy": "No valor horario exacto. Para latencia/flex, bucket opcional 0/1-30/31-60/61-120."
+    },
+    {
+      "event": "validation_error",
+      "when": "falla validación",
+      "props": [
+        "step",
+        "field",
+        "error_code"
+      ]
+    },
+    {
+      "event": "step_complete",
+      "when": "avance válido",
+      "props": [
+        "step",
+        "field",
+        "elapsed_ms_bucket"
+      ]
+    },
+    {
+      "event": "calculator_back",
+      "when": "usuario retrocede",
+      "props": [
+        "from_step",
+        "to_step"
+      ]
+    },
+    {
+      "event": "calculation_started",
+      "when": "se ejecuta motor",
+      "props": [
+        "model_version"
+      ]
+    },
+    {
+      "event": "calculation_succeeded",
+      "when": "motor responde",
+      "props": [
+        "model_version",
+        "sjl_band",
+        "warning_count",
+        "compute_ms_bucket"
+      ],
+      "privacy": "SJL en banda, no horarios."
+    },
+    {
+      "event": "calculation_failed",
+      "when": "motor falla",
+      "props": [
+        "model_version",
+        "error_code"
+      ]
+    },
+    {
+      "event": "preview_view",
+      "when": "resultado visible",
+      "props": [
+        "sjl_band",
+        "direction",
+        "has_msfsc",
+        "warning_count"
+      ]
+    },
+    {
+      "event": "methodology_opened",
+      "when": "usuario abre explicación",
+      "props": [
+        "from"
+      ]
+    },
+    {
+      "event": "preview_report_cta",
+      "when": "CTA del preview",
+      "props": [
+        "phase",
+        "sjl_band"
+      ]
+    },
+    {
+      "event": "report_gate_view",
+      "when": "email gate visible",
+      "props": [
+        "phase",
+        "locale"
+      ]
+    },
+    {
+      "event": "owner_copy_opt_in_changed",
+      "when": "checkbox opcional cambia",
+      "props": [
+        "enabled"
+      ],
+      "privacy": "No incluir email ni inputs."
+    },
+    {
+      "event": "email_submitted",
+      "when": "solicitud válida",
+      "props": [
+        "phase",
+        "locale"
+      ],
+      "privacy": "El email va al sistema transaccional, no a analytics."
+    },
+    {
+      "event": "checkout_view",
+      "when": "checkout fase2",
+      "props": [
+        "currency",
+        "price_minor",
+        "country_code",
+        "offer_id"
+      ]
+    },
+    {
+      "event": "checkout_started",
+      "when": "CTA compra",
+      "props": [
+        "currency",
+        "price_minor",
+        "offer_id"
+      ]
+    },
+    {
+      "event": "payment_succeeded",
+      "when": "webhook/confirmación",
+      "props": [
+        "currency",
+        "price_minor",
+        "offer_id",
+        "payment_provider"
+      ],
+      "privacy": "Sin PAN ni payment method details."
+    },
+    {
+      "event": "payment_failed",
+      "when": "fallo pago",
+      "props": [
+        "error_category",
+        "payment_provider"
+      ]
+    },
+    {
+      "event": "report_ready_view",
+      "when": "éxito visible",
+      "props": [
+        "delivery_channel"
+      ]
+    },
+    {
+      "event": "report_opened",
+      "when": "abre informe",
+      "props": [
+        "model_version",
+        "report_version"
+      ]
+    },
+    {
+      "event": "report_view",
+      "when": "informe web visible",
+      "props": [
+        "model_version",
+        "report_version",
+        "locale"
+      ]
+    },
+    {
+      "event": "report_pdf_download",
+      "when": "descarga PDF",
+      "props": [
+        "model_version",
+        "report_version",
+        "locale"
+      ]
+    },
+    {
+      "event": "calendar_export",
+      "when": "exporta ICS",
+      "props": [
+        "locale"
+      ]
+    }
+  ],
+  "funnels": [
+    {
+      "name": "activation",
+      "steps": [
+        "landing_view",
+        "calculator_start",
+        "preview_view"
+      ],
+      "target": "inicio_a_preview >=70%"
+    },
+    {
+      "name": "lead",
+      "steps": [
+        "preview_view",
+        "preview_report_cta",
+        "email_submitted"
+      ],
+      "target": "preview_a_email >=30%"
+    },
+    {
+      "name": "payment_phase2",
+      "steps": [
+        "preview_view",
+        "checkout_view",
+        "checkout_started",
+        "payment_succeeded"
+      ],
+      "target": "señal pago >=8% entre solicitantes antes de activar; recalibrar después"
+    },
+    {
+      "name": "speed",
+      "metric": "median(calculator_start→preview_view)",
+      "target": "<=90s"
+    }
+  ],
+  "quality_metrics": [
+    "validation_error_rate_by_field",
+    "dropoff_by_step",
+    "calculation_failed_rate",
+    "report_delivery_failure_rate",
+    "p75_time_to_preview",
+    "owner_copy_opt_in_rate (solo para gobernanza, nunca como objetivo de conversión)"
+  ]
+}

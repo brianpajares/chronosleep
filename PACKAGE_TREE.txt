@@ -1,0 +1,105 @@
+BUILD_chronosleep_v4/
+├── docs
+│   ├── ACCEPTANCE_TESTS.md
+│   ├── brief_estrategico.md
+│   ├── decisions_log.md
+│   ├── DRIVE_SETUP.md
+│   ├── final_audit.md
+│   ├── LAUNCH_CHECKLIST.md
+│   ├── PRD.docx
+│   ├── PRD.md
+│   ├── qa_report.md
+│   └── TRACTION_PLAN.md
+├── drive
+│   ├── base
+│   │   ├── base_chronosleep.xlsx
+│   │   └── fuentes_datos.csv
+│   ├── docs
+│   │   └── model_card.md
+│   ├── model
+│   │   ├── model_params.json
+│   │   ├── model_spec.json
+│   │   └── test_vectors.json
+│   └── templates
+│       └── informe_template.md
+├── model
+│   ├── ingest
+│   │   └── ingest.py
+│   ├── engine_reference.py
+│   ├── model_card.md
+│   └── qa_engine.py
+├── source_stage3
+│   └── APP-chronosleep
+│       ├── 01_estrategia
+│       │   ├── brief.json
+│       │   ├── brief_estrategico.docx
+│       │   ├── brief_estrategico.md
+│       │   └── fuentes_mercado.csv
+│       ├── 02_datos_modelo
+│       │   ├── drive
+│       │   │   ├── base
+│       │   │   │   ├── base_chronosleep.xlsx
+│       │   │   │   └── fuentes_datos.csv
+│       │   │   ├── docs
+│       │   │   │   └── model_card.md
+│       │   │   ├── model
+│       │   │   │   ├── model_params.json
+│       │   │   │   ├── model_spec.json
+│       │   │   │   └── test_vectors.json
+│       │   │   └── templates
+│       │   │       └── informe_template.md
+│       │   ├── ingest
+│       │   │   └── ingest.py
+│       │   ├── base_chronosleep.xlsx
+│       │   ├── drive_manifest.json
+│       │   ├── engine_reference.py
+│       │   ├── estudio_modelos.md
+│       │   ├── fuentes_datos.csv
+│       │   ├── inputs.schema.json
+│       │   ├── model_card.md
+│       │   ├── model_spec.json
+│       │   ├── monetizacion.json
+│       │   ├── outputs_spec.json
+│       │   └── test_vectors.json
+│       ├── 03_qa_ux
+│       │   ├── analytics_events.json
+│       │   ├── components.md
+│       │   ├── copy_i18n.json
+│       │   ├── design_tokens.json
+│       │   ├── prototype.html
+│       │   ├── qa_checks.json
+│       │   ├── qa_engine.py
+│       │   ├── qa_report.md
+│       │   ├── report_layout.md
+│       │   ├── sitemap_flows.md
+│       │   └── ux_spec.md
+│       ├── 00_START_HERE.md
+│       └── handoff.json
+├── spec
+│   ├── analytics_events.json
+│   ├── copy_i18n.json
+│   ├── db_schema.sql
+│   ├── design_tokens.json
+│   ├── drive_manifest.json
+│   ├── inputs.schema.json
+│   ├── model_spec.json
+│   ├── monetizacion.json
+│   ├── openapi.yaml
+│   ├── outputs_spec.json
+│   └── test_vectors.json
+├── ux
+│   ├── components.md
+│   ├── prototype.html
+│   ├── report_layout.md
+│   ├── sitemap_flows.md
+│   └── ux_spec.md
+├── .env.example
+├── 00_START_HERE.md
+├── AGENTS.md
+├── BUILD_PROMPT.md
+├── CLAUDE.md
+├── DECISIONS.md
+├── handoff.json
+├── PACKAGE_TREE.txt
+├── README_START_HERE.md
+└── TASKS.md

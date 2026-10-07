@@ -1,0 +1,447 @@
+{
+  "meta": {
+    "version": "3.0",
+    "brand": "ChronoSleep",
+    "supported": [
+      "es",
+      "en",
+      "pt"
+    ],
+    "notes": "No copy clínico; mantener equivalencia semántica."
+  },
+  "es": {
+    "brand_tagline": "Entiende tu desfase. Alinea tu semana.",
+    "landing": {
+      "eyebrow": "Calculadora de social jetlag",
+      "title": "¿Cuánto cambia tu horario de sueño entre semana y días libres?",
+      "subtitle": "Mídelo en menos de 90 segundos y prueba una semana más alineada con tu agenda. Sin wearable.",
+      "cta": "Calcular mi desfase",
+      "trust": "8 preguntas · no pedimos tu nombre · resultado inicial gratis",
+      "disclaimer": "Información educativa de bienestar; no es un diagnóstico médico."
+    },
+    "progress": "Paso {current} de {total}",
+    "steps": {
+      "work_bedtime": {
+        "title": "En días con obligaciones, ¿a qué hora te acuestas?",
+        "helper": "Usa tu horario habitual, no el de una noche excepcional.",
+        "cta": "Continuar"
+      },
+      "work_wake_time": {
+        "title": "En días con obligaciones, ¿a qué hora te despiertas?",
+        "helper": "Pon la hora a la que normalmente termina tu sueño.",
+        "cta": "Continuar"
+      },
+      "free_bedtime": {
+        "title": "En días libres, ¿a qué hora te acuestas?",
+        "helper": "Piensa en días sin obligación al día siguiente.",
+        "cta": "Continuar"
+      },
+      "free_wake_time": {
+        "title": "En días libres, ¿a qué hora te despiertas?",
+        "helper": "Usa la hora habitual cuando puedes dormir libremente.",
+        "cta": "Continuar"
+      },
+      "sleep_latency_min": {
+        "title": "¿Cuántos minutos tardas normalmente en dormirte?",
+        "helper": "Una estimación aproximada es suficiente.",
+        "unit": "min",
+        "cta": "Continuar"
+      },
+      "workdays_per_week": {
+        "title": "¿Cuántos días por semana tienes una hora de despertar obligatoria?",
+        "helper": "ChronoSleep necesita al menos 1 día libre.",
+        "unit": "días/semana",
+        "cta": "Continuar"
+      },
+      "free_day_alarm": {
+        "title": "¿Usas alarma en tus días libres?",
+        "helper": "Esto cambia cómo interpretamos el punto medio del sueño.",
+        "yes": "Sí",
+        "no": "No",
+        "cta": "Continuar"
+      },
+      "wake_flexibility_min": {
+        "title": "¿Cuánto podrías mover tu horario en días con obligaciones?",
+        "helper": "Elige entre 0 y 120 minutos. No asumiremos más flexibilidad que la que declares.",
+        "unit": "min",
+        "cta": "Ver mi resultado"
+      }
+    },
+    "errors": {
+      "required": "Completa este dato para continuar.",
+      "time": "Introduce una hora válida entre 00:00 y 23:59.",
+      "integer": "Usa un número entero.",
+      "latency_range": "La latencia debe estar entre 0 y 120 minutos.",
+      "workdays_range": "Elige entre 1 y 6 días.",
+      "flex_range": "La flexibilidad debe estar entre 0 y 120 minutos.",
+      "sleep_duration": "Con estos horarios, el episodio calculado sería de {hours} h. ChronoSleep solo calcula patrones entre 3 y 14 h. Revisa las horas o la latencia."
+    },
+    "processing": {
+      "title": "Comparando tus dos horarios…",
+      "body": "Calculamos los puntos medios de sueño y probamos una semana dentro de tu flexibilidad.",
+      "error": "No pudimos calcular con estos datos. Revisa tus horarios.",
+      "error_cta": "Revisar respuestas"
+    },
+    "preview": {
+      "title": "Tu desfase de horarios",
+      "direction_later": "Tus días libres quedan más tarde que tus días con obligaciones.",
+      "direction_earlier": "Tus días libres quedan más temprano que tus días con obligaciones.",
+      "direction_same": "Tus puntos medios de sueño están prácticamente alineados.",
+      "sensitivity": "Con ±15 min de error en tus horas: aprox. {min}–{max}.",
+      "sensitivity_note": "Es una sensibilidad al autorreporte, no un intervalo de confianza.",
+      "population": "Referencia descriptiva: EE. UU., NHANES 2017–2020. No es un umbral diagnóstico.",
+      "locked_plan": "Plan de 7 días",
+      "locked_scenario": "Escenario con +30 min de flexibilidad",
+      "locked_method": "Supuestos y metodología",
+      "locked_label": "Incluido en el informe completo",
+      "cta": "Recibir mi informe completo",
+      "method_link": "Cómo funciona",
+      "privacy_link": "Privacidad",
+      "disclaimer": "Este resultado describe horarios; no diagnostica ni mide tu fase circadiana exacta."
+    },
+    "gate": {
+      "title": "Recibe tu informe completo",
+      "body": "Te enviamos el plan de 7 días, los escenarios y la metodología para que puedas revisarlos con calma.",
+      "email_label": "Tu email",
+      "email_placeholder": "tu@email.com",
+      "delivery_consent": "Acepto recibir este informe en este email.",
+      "owner_copy": "Permito enviar una copia de mis horarios y resultados al equipo de ChronoSleep para mejorar el producto.",
+      "owner_copy_note": "Opcional y desactivado por defecto.",
+      "privacy": "No pedimos tu nombre.",
+      "cta": "Enviar mi informe",
+      "invalid_email": "Revisa el formato del email."
+    },
+    "checkout": {
+      "title": "Tu informe completo",
+      "one_time": "Pago único",
+      "includes": "Incluye plan de 7 días, escenarios, sensibilidad, metodología y PDF.",
+      "cta": "Comprar informe por {price}",
+      "processing": "Procesando pago…",
+      "failed": "El pago no se completó. Puedes intentarlo de nuevo."
+    },
+    "success": {
+      "title": "Tu informe está listo",
+      "body": "Puedes verlo ahora y guardar una copia.",
+      "cta": "Ver informe",
+      "resend": "Reenviar por email"
+    },
+    "report": {
+      "title": "Tu informe ChronoSleep",
+      "summary": "Resumen",
+      "plan": "Plan de 7 días",
+      "scenarios": "Escenarios",
+      "sensitivity": "Sensibilidad",
+      "assumptions": "Supuestos",
+      "methodology": "Metodología",
+      "download": "Descargar PDF",
+      "verification": "ID de verificación",
+      "health_disclaimer": "ChronoSleep ofrece información educativa de bienestar. No sustituye evaluación, diagnóstico ni tratamiento profesional."
+    },
+    "nav": {
+      "how": "Cómo funciona",
+      "faq": "Preguntas frecuentes",
+      "calculate": "Calcular",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "health": "Aviso de salud",
+      "language": "Cambiar idioma"
+    },
+    "common": {
+      "back": "Atrás",
+      "close": "Cerrar",
+      "source": "Ver fuente",
+      "hours_short": "h",
+      "minutes_short": "min"
+    }
+  },
+  "en": {
+    "brand_tagline": "See your schedule gap. Align your week.",
+    "landing": {
+      "eyebrow": "Social jetlag calculator",
+      "title": "How much does your sleep schedule shift between workdays and free days?",
+      "subtitle": "Measure it in under 90 seconds and explore a week that better fits your schedule. No wearable required.",
+      "cta": "Calculate my schedule gap",
+      "trust": "8 questions · no name required · free initial result",
+      "disclaimer": "Educational wellness information; not a medical diagnosis."
+    },
+    "progress": "Step {current} of {total}",
+    "steps": {
+      "work_bedtime": {
+        "title": "On obligation days, what time do you go to bed?",
+        "helper": "Use your usual schedule, not an exceptional night.",
+        "cta": "Continue"
+      },
+      "work_wake_time": {
+        "title": "On obligation days, what time do you wake up?",
+        "helper": "Enter when your sleep usually ends.",
+        "cta": "Continue"
+      },
+      "free_bedtime": {
+        "title": "On free days, what time do you go to bed?",
+        "helper": "Think of days with no obligation the next morning.",
+        "cta": "Continue"
+      },
+      "free_wake_time": {
+        "title": "On free days, what time do you wake up?",
+        "helper": "Use your usual wake time when you can sleep freely.",
+        "cta": "Continue"
+      },
+      "sleep_latency_min": {
+        "title": "About how many minutes does it usually take you to fall asleep?",
+        "helper": "A rough estimate is enough.",
+        "unit": "min",
+        "cta": "Continue"
+      },
+      "workdays_per_week": {
+        "title": "How many days per week do you have a required wake time?",
+        "helper": "ChronoSleep needs at least 1 free day.",
+        "unit": "days/week",
+        "cta": "Continue"
+      },
+      "free_day_alarm": {
+        "title": "Do you use an alarm on free days?",
+        "helper": "This changes how we interpret your sleep midpoint.",
+        "yes": "Yes",
+        "no": "No",
+        "cta": "Continue"
+      },
+      "wake_flexibility_min": {
+        "title": "How much could you shift your schedule on obligation days?",
+        "helper": "Choose 0 to 120 minutes. We will not assume more flexibility than you report.",
+        "unit": "min",
+        "cta": "See my result"
+      }
+    },
+    "errors": {
+      "required": "Complete this field to continue.",
+      "time": "Enter a valid time from 00:00 to 23:59.",
+      "integer": "Use a whole number.",
+      "latency_range": "Sleep latency must be between 0 and 120 minutes.",
+      "workdays_range": "Choose 1 to 6 days.",
+      "flex_range": "Flexibility must be between 0 and 120 minutes.",
+      "sleep_duration": "With these times, the calculated sleep episode would be {hours} h. ChronoSleep only calculates patterns from 3 to 14 h. Review the times or latency."
+    },
+    "processing": {
+      "title": "Comparing your two schedules…",
+      "body": "We calculate both sleep midpoints and test a week within your stated flexibility.",
+      "error": "We could not calculate a result from these inputs. Review your times.",
+      "error_cta": "Review answers"
+    },
+    "preview": {
+      "title": "Your schedule gap",
+      "direction_later": "Your free-day sleep midpoint is later than on obligation days.",
+      "direction_earlier": "Your free-day sleep midpoint is earlier than on obligation days.",
+      "direction_same": "Your sleep midpoints are nearly aligned.",
+      "sensitivity": "With ±15 min reporting error: about {min}–{max}.",
+      "sensitivity_note": "This is a reporting-sensitivity range, not a confidence interval.",
+      "population": "Descriptive reference: U.S., NHANES 2017–2020. Not a diagnostic threshold.",
+      "locked_plan": "7-day plan",
+      "locked_scenario": "Scenario with +30 min flexibility",
+      "locked_method": "Assumptions and methodology",
+      "locked_label": "Included in the full report",
+      "cta": "Get my full report",
+      "method_link": "How it works",
+      "privacy_link": "Privacy",
+      "disclaimer": "This result describes schedules; it does not diagnose or measure your exact circadian phase."
+    },
+    "gate": {
+      "title": "Get your full report",
+      "body": "We will send the 7-day plan, scenarios and methodology so you can review them at your own pace.",
+      "email_label": "Your email",
+      "email_placeholder": "you@email.com",
+      "delivery_consent": "I agree to receive this report at this email.",
+      "owner_copy": "I allow a copy of my schedule inputs and results to be sent to the ChronoSleep team to improve the product.",
+      "owner_copy_note": "Optional and off by default.",
+      "privacy": "We do not ask for your name.",
+      "cta": "Send my report",
+      "invalid_email": "Check the email format."
+    },
+    "checkout": {
+      "title": "Your full report",
+      "one_time": "One-time payment",
+      "includes": "Includes 7-day plan, scenarios, sensitivity, methodology and PDF.",
+      "cta": "Buy report for {price}",
+      "processing": "Processing payment…",
+      "failed": "Payment was not completed. You can try again."
+    },
+    "success": {
+      "title": "Your report is ready",
+      "body": "You can view it now and save a copy.",
+      "cta": "View report",
+      "resend": "Resend by email"
+    },
+    "report": {
+      "title": "Your ChronoSleep report",
+      "summary": "Summary",
+      "plan": "7-day plan",
+      "scenarios": "Scenarios",
+      "sensitivity": "Sensitivity",
+      "assumptions": "Assumptions",
+      "methodology": "Methodology",
+      "download": "Download PDF",
+      "verification": "Verification ID",
+      "health_disclaimer": "ChronoSleep provides educational wellness information. It does not replace professional evaluation, diagnosis or treatment."
+    },
+    "nav": {
+      "how": "How it works",
+      "faq": "FAQ",
+      "calculate": "Calculate",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "health": "Health notice",
+      "language": "Change language"
+    },
+    "common": {
+      "back": "Back",
+      "close": "Close",
+      "source": "View source",
+      "hours_short": "h",
+      "minutes_short": "min"
+    }
+  },
+  "pt": {
+    "brand_tagline": "Entenda seu descompasso. Alinhe sua semana.",
+    "landing": {
+      "eyebrow": "Calculadora de jet lag social",
+      "title": "Quanto o seu horário de sono muda entre dias de obrigação e dias livres?",
+      "subtitle": "Meça em menos de 90 segundos e explore uma semana mais alinhada à sua agenda. Sem wearable.",
+      "cta": "Calcular meu descompasso",
+      "trust": "8 perguntas · não pedimos seu nome · resultado inicial grátis",
+      "disclaimer": "Informação educativa de bem-estar; não é diagnóstico médico."
+    },
+    "progress": "Passo {current} de {total}",
+    "steps": {
+      "work_bedtime": {
+        "title": "Nos dias de obrigação, a que horas você vai para a cama?",
+        "helper": "Use seu horário habitual, não uma noite excepcional.",
+        "cta": "Continuar"
+      },
+      "work_wake_time": {
+        "title": "Nos dias de obrigação, a que horas você acorda?",
+        "helper": "Informe quando seu sono normalmente termina.",
+        "cta": "Continuar"
+      },
+      "free_bedtime": {
+        "title": "Nos dias livres, a que horas você vai para a cama?",
+        "helper": "Pense em dias sem obrigação na manhã seguinte.",
+        "cta": "Continuar"
+      },
+      "free_wake_time": {
+        "title": "Nos dias livres, a que horas você acorda?",
+        "helper": "Use seu horário habitual quando pode dormir livremente.",
+        "cta": "Continuar"
+      },
+      "sleep_latency_min": {
+        "title": "Quantos minutos você normalmente leva para adormecer?",
+        "helper": "Uma estimativa aproximada é suficiente.",
+        "unit": "min",
+        "cta": "Continuar"
+      },
+      "workdays_per_week": {
+        "title": "Quantos dias por semana você tem um horário obrigatório para acordar?",
+        "helper": "O ChronoSleep precisa de pelo menos 1 dia livre.",
+        "unit": "dias/semana",
+        "cta": "Continuar"
+      },
+      "free_day_alarm": {
+        "title": "Você usa despertador nos dias livres?",
+        "helper": "Isso muda como interpretamos o ponto médio do sono.",
+        "yes": "Sim",
+        "no": "Não",
+        "cta": "Continuar"
+      },
+      "wake_flexibility_min": {
+        "title": "Quanto você poderia deslocar seu horário nos dias de obrigação?",
+        "helper": "Escolha de 0 a 120 minutos. Não assumiremos mais flexibilidade do que você informar.",
+        "unit": "min",
+        "cta": "Ver meu resultado"
+      }
+    },
+    "errors": {
+      "required": "Preencha este dado para continuar.",
+      "time": "Digite um horário válido entre 00:00 e 23:59.",
+      "integer": "Use um número inteiro.",
+      "latency_range": "A latência deve ficar entre 0 e 120 minutos.",
+      "workdays_range": "Escolha entre 1 e 6 dias.",
+      "flex_range": "A flexibilidade deve ficar entre 0 e 120 minutos.",
+      "sleep_duration": "Com esses horários, o episódio calculado seria de {hours} h. O ChronoSleep só calcula padrões entre 3 e 14 h. Revise os horários ou a latência."
+    },
+    "processing": {
+      "title": "Comparando seus dois horários…",
+      "body": "Calculamos os pontos médios do sono e testamos uma semana dentro da sua flexibilidade.",
+      "error": "Não conseguimos calcular com esses dados. Revise seus horários.",
+      "error_cta": "Revisar respostas"
+    },
+    "preview": {
+      "title": "Seu descompasso de horários",
+      "direction_later": "Nos dias livres, o ponto médio do seu sono fica mais tarde do que nos dias de obrigação.",
+      "direction_earlier": "Nos dias livres, o ponto médio do seu sono fica mais cedo do que nos dias de obrigação.",
+      "direction_same": "Seus pontos médios de sono estão praticamente alinhados.",
+      "sensitivity": "Com ±15 min de erro nos horários: aprox. {min}–{max}.",
+      "sensitivity_note": "É uma sensibilidade ao autorrelato, não um intervalo de confiança.",
+      "population": "Referência descritiva: EUA, NHANES 2017–2020. Não é limiar diagnóstico.",
+      "locked_plan": "Plano de 7 dias",
+      "locked_scenario": "Cenário com +30 min de flexibilidade",
+      "locked_method": "Premissas e metodologia",
+      "locked_label": "Incluído no relatório completo",
+      "cta": "Receber meu relatório completo",
+      "method_link": "Como funciona",
+      "privacy_link": "Privacidade",
+      "disclaimer": "Este resultado descreve horários; não diagnostica nem mede sua fase circadiana exata."
+    },
+    "gate": {
+      "title": "Receba seu relatório completo",
+      "body": "Enviamos o plano de 7 dias, os cenários e a metodologia para você revisar com calma.",
+      "email_label": "Seu email",
+      "email_placeholder": "voce@email.com",
+      "delivery_consent": "Aceito receber este relatório neste email.",
+      "owner_copy": "Permito enviar uma cópia dos meus horários e resultados à equipe ChronoSleep para melhorar o produto.",
+      "owner_copy_note": "Opcional e desativado por padrão.",
+      "privacy": "Não pedimos seu nome.",
+      "cta": "Enviar meu relatório",
+      "invalid_email": "Revise o formato do email."
+    },
+    "checkout": {
+      "title": "Seu relatório completo",
+      "one_time": "Pagamento único",
+      "includes": "Inclui plano de 7 dias, cenários, sensibilidade, metodologia e PDF.",
+      "cta": "Comprar relatório por {price}",
+      "processing": "Processando pagamento…",
+      "failed": "O pagamento não foi concluído. Você pode tentar novamente."
+    },
+    "success": {
+      "title": "Seu relatório está pronto",
+      "body": "Você pode ver agora e salvar uma cópia.",
+      "cta": "Ver relatório",
+      "resend": "Reenviar por email"
+    },
+    "report": {
+      "title": "Seu relatório ChronoSleep",
+      "summary": "Resumo",
+      "plan": "Plano de 7 dias",
+      "scenarios": "Cenários",
+      "sensitivity": "Sensibilidade",
+      "assumptions": "Premissas",
+      "methodology": "Metodologia",
+      "download": "Baixar PDF",
+      "verification": "ID de verificação",
+      "health_disclaimer": "O ChronoSleep oferece informação educativa de bem-estar. Não substitui avaliação, diagnóstico ou tratamento profissional."
+    },
+    "nav": {
+      "how": "Como funciona",
+      "faq": "Perguntas frequentes",
+      "calculate": "Calcular",
+      "privacy": "Privacidade",
+      "terms": "Termos",
+      "health": "Aviso de saúde",
+      "language": "Mudar idioma"
+    },
+    "common": {
+      "back": "Voltar",
+      "close": "Fechar",
+      "source": "Ver fonte",
+      "hours_short": "h",
+      "minutes_short": "min"
+    }
+  }
+}
