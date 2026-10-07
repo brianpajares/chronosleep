@@ -43,6 +43,18 @@ export function formatClock(hhmm: string, locale: FormatLocale): string {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
+export type SjlBand = 'lt_30m' | '30m_1h' | '1h_2h' | '2h_3h' | 'ge_3h';
+
+/** Coarse band for analytics, storage and admin: never the exact figure. */
+export function sjlBand(hours: number): SjlBand {
+  const min = hoursToMinutes(hours);
+  if (min < 30) return 'lt_30m';
+  if (min < 60) return '30m_1h';
+  if (min < 120) return '1h_2h';
+  if (min < 180) return '2h_3h';
+  return 'ge_3h';
+}
+
 export function directionOf(relativeHours: number): Direction {
   if (hoursToMinutes(Math.abs(relativeHours)) === 0) return 'aligned';
   return relativeHours > 0 ? 'later' : 'earlier';

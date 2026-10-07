@@ -1,0 +1,329 @@
+@import 'tailwindcss';
+
+/*
+ * ChronoSleep design tokens — source of truth: spec/design_tokens.json (WCAG 2.2 AA verified pairs).
+ * Light is the default; dark follows the system unless the user picks a theme (data-theme).
+ */
+:root {
+  color-scheme: light;
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --surface-subtle: #eef2f6;
+  --text: #111827;
+  --text-muted: #4b5563;
+  --primary: #155e75;
+  --primary-hover: #164e63;
+  --primary-text: #ffffff;
+  --link: #1d4ed8;
+  --border: #d1d5db;
+  --border-strong: #9ca3af;
+  --success: #166534;
+  --warning: #92400e;
+  --danger: #b42318;
+  --focus: #1d4ed8;
+  --locked: #6b7280;
+  /* Brand accents (decorative / chart marks; text on them always uses text tokens). */
+  --accent: #4338ca;
+  --accent-soft: #e0e7ff;
+  --primary-soft: #cffafe;
+  --glow-a: rgba(21, 94, 117, 0.16);
+  --glow-b: rgba(67, 56, 202, 0.12);
+  --elev-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --elev-md: 0 8px 24px rgba(15, 23, 42, 0.1);
+  --elev-lg: 0 20px 48px rgba(15, 23, 42, 0.14);
+  --focus-ring: 0 0 0 3px rgba(29, 78, 216, 0.28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0b1220;
+    --surface: #111827;
+    --surface-subtle: #1f2937;
+    --text: #e5e7eb;
+    --text-muted: #cbd5e1;
+    --primary: #67e8f9;
+    --primary-hover: #a5f3fc;
+    --primary-text: #082f49;
+    --link: #93c5fd;
+    --border: #475569;
+    --border-strong: #64748b;
+    --success: #86efac;
+    --warning: #fcd34d;
+    --danger: #fca5a5;
+    --focus: #93c5fd;
+    --locked: #cbd5e1;
+    --accent: #a5b4fc;
+    --accent-soft: #312e81;
+    --primary-soft: #164e63;
+    --glow-a: rgba(103, 232, 249, 0.14);
+    --glow-b: rgba(129, 140, 248, 0.16);
+    --elev-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --elev-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --elev-lg: 0 20px 48px rgba(0, 0, 0, 0.55);
+    --focus-ring: 0 0 0 3px rgba(147, 197, 253, 0.4);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0b1220;
+  --surface: #111827;
+  --surface-subtle: #1f2937;
+  --text: #e5e7eb;
+  --text-muted: #cbd5e1;
+  --primary: #67e8f9;
+  --primary-hover: #a5f3fc;
+  --primary-text: #082f49;
+  --link: #93c5fd;
+  --border: #475569;
+  --border-strong: #64748b;
+  --success: #86efac;
+  --warning: #fcd34d;
+  --danger: #fca5a5;
+  --focus: #93c5fd;
+  --locked: #cbd5e1;
+  --accent: #a5b4fc;
+  --accent-soft: #312e81;
+  --primary-soft: #164e63;
+  --glow-a: rgba(103, 232, 249, 0.14);
+  --glow-b: rgba(129, 140, 248, 0.16);
+  --elev-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --elev-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --elev-lg: 0 20px 48px rgba(0, 0, 0, 0.55);
+  --focus-ring: 0 0 0 3px rgba(147, 197, 253, 0.4);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-subtle: var(--surface-subtle);
+  --color-fg: var(--text);
+  --color-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-on-primary: var(--primary-text);
+  --color-link: var(--link);
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-focus: var(--focus);
+  --color-locked: var(--locked);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-primary-soft: var(--primary-soft);
+
+  --font-sans:
+    ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 2rem;
+  --text-4xl: 2.5rem;
+  --text-5xl: 3.25rem;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-sm: var(--elev-sm);
+  --shadow-md: var(--elev-md);
+  --shadow-lg: var(--elev-lg);
+
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  --animate-rise: rise 0.6s var(--ease-out-soft) both;
+  --animate-grow: grow 0.9s var(--ease-out-soft) both;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes grow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3 {
+    line-height: 1.2;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  a {
+    color: var(--link);
+    text-underline-offset: 3px;
+  }
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--primary-soft);
+    color: var(--text);
+  }
+  button,
+  [role='button'],
+  summary,
+  select,
+  input[type='checkbox'],
+  input[type='radio'],
+  input[type='range'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (min-width: 768px) {
+    padding-inline: 24px;
+  }
+  @media (min-width: 1280px) {
+    padding-inline: 32px;
+  }
+}
+
+@utility container-form {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+@utility container-report {
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (min-width: 768px) {
+    padding-inline: 24px;
+  }
+}
+
+@utility hero-glow {
+  background-image:
+    radial-gradient(60rem 28rem at 85% -10%, var(--glow-b), transparent 60%),
+    radial-gradient(48rem 26rem at 5% 0%, var(--glow-a), transparent 60%);
+}
+
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* Work-day tracks use a diagonal hatch so charts never rely on colour alone. */
+.hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    var(--accent) 0 3px,
+    transparent 3px 7px
+  );
+}
+
+/* Native time/number inputs: consistent sizing and 44px touch targets. */
+input[type='time'],
+input[type='number'],
+input[type='email'],
+input[type='text'],
+select {
+  min-height: 44px;
+}
+
+input[type='range'] {
+  accent-color: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

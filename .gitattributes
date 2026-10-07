@@ -1,0 +1,6 @@
+* text=auto eol=lf
+drive/** -text
+*.xlsx binary
+*.docx binary
+*.ico binary
+*.png binary
