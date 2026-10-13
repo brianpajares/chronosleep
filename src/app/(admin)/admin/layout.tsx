@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import '../../globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
   title: 'ChronoSleep · Admin',
   robots: { index: false, follow: false, nocache: true },
 };
