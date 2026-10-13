@@ -47,3 +47,6 @@ next-env.d.ts
 /.lighthouseci/
 .vercel
 *.log
+
+.vercel
+.env*
