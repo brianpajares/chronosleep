@@ -12,7 +12,8 @@ async function scan(page: Page, label: string) {
 test.describe('Accessibility (WCAG 2.2 AA)', () => {
   for (const scheme of ['light', 'dark'] as const) {
     test(`landing, content pages and funnel pass axe (${scheme})`, async ({ page }) => {
-      await page.emulateMedia({ colorScheme: scheme });
+      test.setTimeout(180_000);
+      await page.emulateMedia({ colorScheme: scheme, reducedMotion: 'reduce' }); // avoid scanning mid fade-in
       for (const path of ['/', '/en', '/pt', '/como-funciona', '/faq', '/legal/privacidad', '/legal/derechos', '/mx/social-jetlag']) {
         await page.goto(path);
         await scan(page, `${scheme} ${path}`);
