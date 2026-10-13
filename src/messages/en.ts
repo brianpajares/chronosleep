@@ -176,6 +176,7 @@ export const en: Messages = {
     sensitivity_scale: 'Scale from 0 to 12 h',
     reference_title: 'Population reference',
     reference_band: 'Your gap falls in the band: {band}',
+    reference_you: 'Your band',
     reference_lt1: 'under 1 h',
     reference_1_2: '1 h to under 2 h',
     reference_ge2: '2 h or more',

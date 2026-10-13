@@ -178,6 +178,7 @@ export const es = {
     sensitivity_scale: 'Escala de 0 a 12 h',
     reference_title: 'Referencia poblacional',
     reference_band: 'Tu desfase está en la banda: {band}',
+    reference_you: 'Tu banda',
     reference_lt1: 'menos de 1 h',
     reference_1_2: 'de 1 h a menos de 2 h',
     reference_ge2: '2 h o más',

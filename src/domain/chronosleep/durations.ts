@@ -12,6 +12,14 @@ export interface DurationInputs {
   sleep_latency_min: number;
 }
 
+/** Implied sleep episode (hours) for one bedtime/wake pair, or null when a time is not valid yet. */
+export function episodeHours(bed: string | undefined, wake: string | undefined, latencyMin: number): number | null {
+  const b = tryParseTime(bed);
+  const w = tryParseTime(wake);
+  if (b === null || w === null) return null;
+  return durationHours(pyMod(b + latencyMin, 1440), w);
+}
+
 /**
  * Pre-flight check used by the wizard (step 4/5/8) before invoking the engine:
  * implied sleep episodes must be within 3–14 h (inclusive).

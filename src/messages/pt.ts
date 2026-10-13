@@ -176,6 +176,7 @@ export const pt: Messages = {
     sensitivity_scale: 'Escala de 0 a 12 h',
     reference_title: 'Referência populacional',
     reference_band: 'Seu descompasso está na faixa: {band}',
+    reference_you: 'Sua faixa',
     reference_lt1: 'menos de 1 h',
     reference_1_2: 'de 1 h a menos de 2 h',
     reference_ge2: '2 h ou mais',

@@ -5,9 +5,8 @@ import { notFound } from 'next/navigation';
 import { isLocale, LOCALES } from '@/i18n/routing';
 import { robotsFor, siteUrl } from '@/lib/site';
 import { pickMessages } from '@/messages';
+import { BASE_CLIENT_NAMESPACES } from '@/messages/namespaces';
 import '../../globals.css';
-
-export const BASE_CLIENT_NAMESPACES = ['site', 'common', 'errors', 'nav'] as const;
 
 const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem('cs-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t)}}catch(e){}})();`;
 
