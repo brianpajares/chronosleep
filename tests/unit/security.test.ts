@@ -24,7 +24,7 @@ describe('AES-256-GCM + hashing (NFR-05, AT-08)', () => {
   it('detects tampering and wrong AAD', () => {
     const s = sealJson({ a: 1 }, 'lead-1');
     expect(() => openJson(s, 'lead-2')).toThrow();
-    const flipped = { ...s, ciphertext: Buffer.from(s.ciphertext, 'base64').map((b, i) => (i === 0 ? b ^ 1 : b)).toString('base64') };
+    const flipped = { ...s, ciphertext: Buffer.from(Uint8Array.from(Buffer.from(s.ciphertext, 'base64'), (b, i) => (i === 0 ? b ^ 1 : b))).toString('base64') };
     expect(() => open(flipped, 'lead-1')).toThrow();
   });
 
@@ -74,7 +74,7 @@ describe('analytics allow-list (FR-29, AT-29)', () => {
   });
 
   it('only whitelisted properties exist for every catalog event', () => {
-    for (const e of analyticsCatalog.events) expect(allowedProps(e.event).sort()).toEqual([...e.props].sort());
+    for (const e of analyticsCatalog.events) expect([...allowedProps(e.event)].sort()).toEqual([...e.props].sort());
     expect(analyticsCatalog.events.some((e) => e.props.some((p) => /email|time|hhmm/i.test(p) && p !== 'elapsed_ms_bucket' && p !== 'compute_ms_bucket'))).toBe(false);
   });
 

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import type { NextResponse } from 'next/server';
 import { json, readJson, withApi } from '@/server/api';
 import { POLICIES } from '@/server/ratelimit';
 import { CalculateRequestSchema } from '@/server/schemas';

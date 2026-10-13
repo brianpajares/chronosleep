@@ -243,7 +243,6 @@ function ScenarioBars({ p }: { p: PdfProps }) {
 export function ReportDocument(p: PdfProps) {
   const { report, locale, t } = p;
   const c = report.result.current;
-  const plan = report.result.plan;
   const dir = directionOf(c.social_jetlag_relative_hours);
   const date = new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(p.generatedAt);
   const dayType = (d: 'work' | 'free') => t(d === 'work' ? 'report.day_work' : 'report.day_free');

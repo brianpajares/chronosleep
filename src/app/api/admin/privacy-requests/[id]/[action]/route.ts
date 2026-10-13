@@ -33,3 +33,17 @@ export const POST = withApi<{ id: string; action: string }>(
     }
   },
 );
+
+/** GET only serves the JSON export (browser download link in the admin panel). */
+export const GET = withApi<{ id: string; action: string }>(
+  { name: 'admin-privacy-export', rateLimit: POLICIES.admin },
+  async (_req, { params, requestId }) => {
+    const admin = await requireAdminApi();
+    const id = UuidParam.safeParse(params.id);
+    if (!id.success || params.action !== 'export') throw new ApiError(404, 'not_found', 'Not found');
+    const data = await exportPrivacyData(id.data, admin.userId);
+    return json(data, requestId, {
+      headers: { 'Content-Disposition': `attachment; filename="chronosleep-data-${id.data.slice(0, 8)}.json"` },
+    });
+  },
+);

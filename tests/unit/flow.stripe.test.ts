@@ -11,7 +11,7 @@ import { post, setupEnv, TV01 } from './helpers';
 const created: Array<Record<string, unknown>> = [];
 
 vi.mock('stripe', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('stripe')>();
+  const actual = await importOriginal<Record<string, unknown> & { default: typeof Stripe }>();
   const Real = actual.default;
   class FakeStripe extends Real {
     constructor(key: string) {
