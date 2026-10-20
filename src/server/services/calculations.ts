@@ -31,6 +31,16 @@ export interface CalculateResponse {
 
 const DAY_MS = 86_400_000;
 
+/**
+ * Paid content must not travel to the browser before payment (playbook §1): in stripe mode the
+ * preview response carries only day 1 of the 7-day plan (the free teaser). The complete engine
+ * object stays encrypted server-side and feeds the report/PDF after delivery.
+ */
+function previewDomain(result: CalculationResult): CalculationResult {
+  if (env.monetizationMode() !== 'stripe') return result;
+  return { ...result, plan: { ...result.plan, schedule_7d: result.plan.schedule_7d.slice(0, 1) } };
+}
+
 /** FR-03/FR-04: validate against the shared contract, run the pure engine, persist ciphertext only. */
 export async function createCalculation(args: {
   inputs: unknown;
@@ -76,7 +86,7 @@ export async function createCalculation(args: {
       mid_sleep_free: result.current.mid_sleep_free,
       direction: directionOf(result.current.social_jetlag_relative_hours),
     },
-    domain: result,
+    domain: previewDomain(result),
     request_id: args.requestId,
   };
 }

@@ -19,6 +19,7 @@ export const POST = withApi({ name: 'checkout-session', rateLimit: POLICIES.chec
     leadId: body.report_request_id,
     locale: body.locale ?? 'en',
     countryCode: body.country_code ?? defaultCountryFor(body.locale ?? 'en', geo),
+    gaClientId: body.ga_client_id,
   });
   return json(out, requestId, { status: 201 });
 });

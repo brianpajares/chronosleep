@@ -28,7 +28,7 @@ export function isCountryFor(locale: AppLocale, country: string): boolean {
 
 /** Every indexable public path (without locale prefix) for the sitemap. */
 export function publicPaths(locale: AppLocale): string[] {
-  const paths = ['/', '/como-funciona', '/faq', '/legal/privacidad', '/legal/terminos', '/legal/salud', '/legal/derechos'];
+  const paths = ['/', '/como-funciona', '/faq', '/legal/privacidad', '/legal/terminos', '/legal/salud', '/legal/derechos', '/legal/reembolsos', '/legal/cookies', '/legal/libro-de-reclamaciones', '/legal/creditos'];
   for (const c of COUNTRY_LOCALES[locale]) {
     paths.push(`/${c}/social-jetlag`);
     for (const k of CASE_KEYS) paths.push(`/${c}/casos/${CASE_SLUGS[locale][k]}`);

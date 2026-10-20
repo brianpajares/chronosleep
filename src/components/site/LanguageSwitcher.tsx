@@ -22,7 +22,7 @@ function Links({ query, className }: { query: Record<string, string>; className?
           const active = l === locale;
           return (
             <li key={l}>
-              <Link
+              <Link prefetch={false}
                 href={{ pathname, query }}
                 locale={l}
                 hrefLang={l}

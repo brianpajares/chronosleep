@@ -166,7 +166,7 @@ export default async function LandingPage({ params }: PageProps<'/[locale]'>) {
             </details>
           ))}
         </div>
-        <Link href="/faq" className="mt-4 inline-flex min-h-11 items-center font-semibold">
+        <Link prefetch={false} href="/faq" className="mt-4 inline-flex min-h-11 items-center font-semibold">
           {t('faq_more')}
         </Link>
       </section>

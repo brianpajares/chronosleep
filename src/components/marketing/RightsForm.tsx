@@ -17,6 +17,7 @@ export function RightsForm() {
   const [email, setEmail] = useState('');
   const [type, setType] = useState<(typeof TYPES)[number]>('access');
   const [token, setToken] = useState('');
+  const [trap, setTrap] = useState('');
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +32,7 @@ export function RightsForm() {
       const res = await fetch('/api/privacy/requests', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ email: email.trim(), request_type: type, locale, turnstile_token: token }),
+        body: JSON.stringify({ email: email.trim(), request_type: type, locale, turnstile_token: token, website: trap }),
       });
       if (res.status === 202) setDone(true);
       else setError(res.status === 429 ? t('error_rate') : res.status === 400 ? t('error_bot') : t('error_generic'));
@@ -81,6 +82,7 @@ export function RightsForm() {
             ))}
           </select>
         </div>
+        <input type="text" name="website" value={trap} onChange={(e) => setTrap(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
         <TurnstileField onToken={setToken} />
         <FieldError id={`${id}-err`}>{error}</FieldError>
         <Button type="submit" size="lg" block loading={busy}>

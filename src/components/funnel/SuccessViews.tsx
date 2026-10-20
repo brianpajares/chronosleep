@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/primitives';
 import { verificationIdFromUuid } from '@/domain/chronosleep';
 import { Link } from '@/i18n/navigation';
 import { track } from '@/lib/analytics';
+import { supportEmail } from '@/lib/site';
 import { useHydrated } from '@/lib/hooks';
 import { useWizard } from '@/lib/wizard-store';
 
@@ -24,6 +25,7 @@ export function TrackOnMount({ event, props }: { event: string; props?: Record<s
 /** /informe/listo in validation mode: request received, what happens next. No report access yet. */
 export function RequestReceived() {
   const t = useTranslations('success');
+  const s = useTranslations('site');
   const hydrated = useHydrated();
   const lead = useWizard().lead;
   if (!hydrated) return <div className="container-form min-h-[50vh]" aria-busy="true" />;
@@ -71,6 +73,9 @@ export function RequestReceived() {
         <Button asChild variant="secondary" size="lg" className="mt-8">
           <Link href="/">{t('back_home')}</Link>
         </Button>
+        <p className="mt-4 text-sm">
+          <a href={`mailto:${supportEmail()}?subject=${encodeURIComponent(`ChronoSleep ${verificationIdFromUuid(lead.id)}`)}`}>{s('help_contact')}</a>
+        </p>
         <p className="mt-6 text-xs text-muted">{t('edu_note')}</p>
       </Card>
     </div>

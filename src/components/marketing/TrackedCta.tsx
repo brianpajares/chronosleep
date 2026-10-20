@@ -26,7 +26,7 @@ export function TrackedCta({
   const locale = useLocale();
   return (
     <Button asChild size={size} variant={variant} className={cn('shrink-0 whitespace-nowrap', className)}>
-      <Link href={href} onClick={() => track('calculator_start', { locale, source_page: source })}>
+      <Link prefetch={false} href={href} onClick={() => track('calculator_start', { locale, source_page: source })}>
         {children}
       </Link>
     </Button>

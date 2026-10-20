@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { ConsentBanner } from '@/components/site/ConsentBanner';
 import { isLocale, LOCALES } from '@/i18n/routing';
 import { robotsFor, siteUrl } from '@/lib/site';
 import { pickMessages } from '@/messages';
@@ -59,6 +60,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<'/[
         </a>
         <NextIntlClientProvider locale={locale} messages={pickMessages(locale, BASE_CLIENT_NAMESPACES)}>
           {children}
+          <ConsentBanner />
         </NextIntlClientProvider>
       </body>
     </html>

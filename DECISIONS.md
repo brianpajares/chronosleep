@@ -59,3 +59,12 @@ Rutas adicionales (superconjunto): `/api/reports/{id}/pdf|ics`, `/api/admin/priv
 
 ## D-015 - 2026-10-07 - Almacen en memoria y claves de prueba en el despliegue demo
 El despliegue inicial en Vercel no tiene Supabase/Resend: usa memoria, emails `email_not_configured` y claves de prueba de Turnstile. **No es apto para recoger leads reales** (ver README).
+
+## D-016 - 2026-10-20 - Lighthouse con throttling aplicado y score de rendimiento como aviso
+**Contexto:** con throttling simulado (Lantern) el LCP sale ~5 s aunque el LCP observado es ~0,4 s (el elemento LCP es el wordmark del header). **Decision:** CI usa `throttlingMethod: devtools` (movil, red 4G lenta, CPU 4x), mediana de 3 ejecuciones. Son `error`: LCP <= 2,5 s, FCP <= 2,5 s, TBT <= 600 ms, CLS <= 0,1, accesibilidad/best-practices/SEO >= 0,9. El score de rendimiento >= 0,9 es `warn` (medido 0,87-0,94; el coste restante es la hidratacion de React). **Revisar** si se reduce el JS inicial (~550 KB sin comprimir).
+
+## D-017 - 2026-10-20 - Consentimiento previo para analitica (Consent Mode v2)
+GA4 y PostHog no se cargan hasta aceptar el banner; DNT/GPC prevalecen; los paths enviados a GA se sanitizan; el evento `purchase` server-side (Measurement Protocol) solo lleva `ga_cid` si hubo consentimiento. Enmienda la vista previa en modo stripe de D-013 (el bloqueo del plan en el preview tambien se redacta en servidor).
+
+## D-018 - 2026-10-20 - Controles anti-abuso y de cobro
+Honeypot `website` (responde con senuelo 201/202), `STRIPE_LIVE_APPROVED=true` obligatorio para usar `sk_live_` (doble interruptor), validacion de importe/moneda/propietario en el webhook (si no coincide: log + auditoria, sin entrega), columnas explicitas en Supabase (sin `select *`), documentos legales en borrador con `[COMPLETAR]` y revision de abogado pendiente.

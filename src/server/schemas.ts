@@ -18,6 +18,8 @@ export const ReportRequestSchema = z.object({
   waitlist_subscription: z.boolean().default(false),
   locale: LocaleSchema,
   turnstile_token: z.string().max(4096).default(''),
+  /** Honeypot: real users never see or fill this field. */
+  website: z.string().max(200).optional(),
 });
 
 export const PrivacyRequestSchema = z.object({
@@ -25,6 +27,7 @@ export const PrivacyRequestSchema = z.object({
   request_type: z.enum(['access', 'correction', 'deletion', 'portability', 'objection']),
   locale: LocaleSchema,
   turnstile_token: z.string().max(4096).default(''),
+  website: z.string().max(200).optional(),
 });
 
 export const CheckoutSessionSchema = z.object({
@@ -33,6 +36,11 @@ export const CheckoutSessionSchema = z.object({
   country_code: z
     .string()
     .regex(/^[A-Z]{2}$/)
+    .optional(),
+  /** GA4 client id ("123.456"), only sent by the browser after analytics consent. */
+  ga_client_id: z
+    .string()
+    .regex(/^\d{4,12}\.\d{4,12}$/)
     .optional(),
 });
 

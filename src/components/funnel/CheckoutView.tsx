@@ -7,8 +7,11 @@ import { Button } from '@/components/ui/button';
 import { Card, FieldError, Helper, Label } from '@/components/ui/primitives';
 import { Link } from '@/i18n/navigation';
 import { track } from '@/lib/analytics';
+import { getConsent } from '@/lib/consent';
+import { gaConfigured, readGaClientId } from '@/lib/ga';
 import { useHydrated } from '@/lib/hooks';
 import { formatPrice, type Price } from '@/lib/pricing';
+import { supportEmail } from '@/lib/site';
 import { useWizard } from '@/lib/wizard-store';
 
 /** Phase 2 checkout (only rendered when MONETIZATION_MODE=stripe): localized price, single CTA, no dark patterns. */
@@ -48,7 +51,12 @@ export function CheckoutView({ prices, defaultCountry, leadParam, cancelled }: {
       const res = await fetch('/api/checkout/session', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ report_request_id: leadId, locale, country_code: price.code }),
+        body: JSON.stringify({
+          report_request_id: leadId,
+          locale,
+          country_code: price.code,
+          ga_client_id: getConsent() === 'granted' && gaConfigured() ? readGaClientId() : undefined,
+        }),
       });
       const body = (await res.json()) as { checkout_url?: string };
       if (!res.ok || !body.checkout_url) throw new Error('checkout');
@@ -109,6 +117,9 @@ export function CheckoutView({ prices, defaultCountry, leadParam, cancelled }: {
           {t('checkout.secure_note')}
         </Helper>
         <Helper className="text-center">{t('checkout.price_note')}</Helper>
+        <Helper className="text-center">
+          <a href={`mailto:${supportEmail()}?subject=${encodeURIComponent(`ChronoSleep ${leadId.slice(0, 8)}`)}`}>{t('site.help_contact')}</a>
+        </Helper>
       </Card>
     </div>
   );

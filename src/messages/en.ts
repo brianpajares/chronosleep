@@ -52,6 +52,7 @@ export const en: Messages = {
     language_en: 'English',
     language_pt: 'Português',
     not_found_body: 'The page you are looking for does not exist or has moved.',
+    help_contact: 'Need help with your request or payment? Write to us',
     not_found_cta: 'Back to home',
     error_title: 'Something went wrong',
     error_body: 'We could not display this page. Your data is not lost; you can retry.',
@@ -525,6 +526,119 @@ export const en: Messages = {
     controller_label: 'Data controller',
     controller_value: '{entity}',
     contact_label: 'Privacy contact',
+    refunds: {
+      title: 'Refund policy',
+      intro: 'During the validation phase the report is free. If charging is enabled, these rules apply.',
+      sections: [
+        {
+          h: '7-day guarantee',
+          p: [
+            'If the report does not match what is described, you can request a refund within 7 days of purchase.',
+          ],
+        },
+        {
+          h: 'How to request it',
+          p: [
+            'Write to the contact on this page with your verification ID (CS-XXXX-XXXX). We reply within a reasonable time [COMPLETE deadline].',
+          ],
+        },
+        {
+          h: 'Refund method',
+          p: [
+            'The refund is made through the same payment method used for the purchase.',
+          ],
+        },
+        {
+          h: 'Digital product',
+          p: [
+            'The report is a digital product delivered immediately. Withdrawal rights may vary by country [COMPLETE with legal advice].',
+          ],
+        },
+      ],
+    },
+    cookies: {
+      title: 'Cookie policy',
+      intro: 'What we store in your browser and why.',
+      sections: [
+        {
+          h: 'Essential',
+          p: [
+            'We store in your browser your color theme, your language and your cookie choice. They do not identify anyone. Your questionnaire answers are kept in the tab session storage for at most 2 hours.',
+          ],
+        },
+        {
+          h: 'Analytics (only if you accept)',
+          p: [
+            'Google Analytics 4, if configured: measures pages and funnel steps without personal data; it uses the _ga and _ga_* cookies (Google sets them for up to 2 years by default; data is retained for 14 months).',
+            'PostHog, if configured: runs without cookies (in memory) and without user profiles.',
+          ],
+        },
+        {
+          h: 'Advertising',
+          p: [
+            'We do not use advertising or personalization cookies.',
+          ],
+        },
+        {
+          h: 'How to change your choice',
+          p: [
+            'Use the "Cookie preferences" link in the footer. We also honor Do Not Track and Global Privacy Control signals.',
+          ],
+        },
+      ],
+    },
+    claims: {
+      title: 'Complaints book',
+      intro: 'Under the Peruvian Consumer Protection and Defense Code (Law No. 29571) you can file a claim or complaint about the service.',
+      sections: [
+        {
+          h: 'How to file it',
+          p: [
+            'Write to the contact email on this page with: name, ID document, email, a description of the claim or complaint and what you request. [COMPLETE: link to the virtual Complaints Book once available].',
+          ],
+        },
+        {
+          h: 'Response deadline',
+          p: [
+            'We will reply within the applicable legal deadline [COMPLETE].',
+          ],
+        },
+      ],
+    },
+    credits: {
+      title: 'Credits and licenses',
+      intro: 'Software, data and resources behind ChronoSleep.',
+      sections: [
+        {
+          h: 'Software',
+          p: [
+            'Next.js, React, Tailwind CSS, next-intl, Zod, Supabase, Resend, @react-pdf/renderer, Stripe and lucide-react, under open-source licenses or services with commercial terms. The full list is in package.json.',
+          ],
+        },
+        {
+          h: 'Methodology',
+          p: [
+            'Formulas based on the open-source mctq package (rOpenSci, MIT license) and published literature. ChronoSleep does not copy the official MCTQ questionnaire.',
+          ],
+        },
+        {
+          h: 'Reference data',
+          p: [
+            'NHANES 2017–2020 (JAMA Network Open, CC BY license).',
+          ],
+        },
+        {
+          h: 'Images and fonts',
+          p: [
+            'We use no third-party images or external fonts: icons come from lucide-react (ISC license), typefaces are system fonts and the logo is our own.',
+          ],
+        },
+      ],
+    },
+    entity_ruc_label: 'Tax ID (RUC)',
+    entity_address_label: 'Address',
+    pending: '[COMPLETE]',
+    contact_page_note: 'Contact',
     privacy: {
       title: 'Privacy policy',
       intro:
@@ -577,6 +691,30 @@ export const en: Messages = {
         {
           h: 'Minors',
           p: ['ChronoSleep is for people aged 18 or over.'],
+        },
+        {
+          h: 'Artificial intelligence',
+          p: [
+            'ChronoSleep does not use artificial intelligence to calculate results and does not send your data to AI providers. The calculation is a public, deterministic formula.',
+          ],
+        },
+        {
+          h: 'International transfers',
+          p: [
+            'Our processors may handle data outside your country (for example in the United States or the European Union). We require appropriate contractual safeguards and limit the data sent to the minimum necessary.',
+          ],
+        },
+        {
+          h: 'Cookies and analytics',
+          p: [
+            'Only with your consent do we use anonymous analytics (see the cookie policy). You can withdraw it at any time from the footer.',
+          ],
+        },
+        {
+          h: 'Security incidents',
+          p: [
+            'If a breach affects your data, we will notify the competent authority (in Peru, the National Authority for Personal Data Protection) and the affected people within the deadlines of the applicable law.',
+          ],
         },
       ],
     },
@@ -645,6 +783,15 @@ export const en: Messages = {
         },
       ],
     },
+  },
+  cookies: {
+    title: 'Your privacy and cookies',
+    body: 'We use anonymous analytics to improve ChronoSleep. No analytics tool loads until you accept. You can change your mind at any time.',
+    policy: 'Cookie policy',
+    accept: 'Accept',
+    reject: 'Reject',
+    current: 'Your current choice: {value}',
+    preferences: 'Cookie preferences',
   },
   rights: {
     eyebrow: 'Privacy',

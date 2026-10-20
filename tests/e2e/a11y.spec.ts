@@ -18,6 +18,7 @@ test.describe('Accessibility (WCAG 2.2 AA)', () => {
         await page.goto(path);
         await scan(page, `${scheme} ${path}`);
       }
+      await page.context().clearCookies(); // visiting /pt stored the NEXT_LOCALE cookie
       await page.goto('/calcular/1');
       await scan(page, `${scheme} step1`);
       await fillWizard(page);

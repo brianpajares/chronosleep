@@ -16,6 +16,16 @@ import type {
   WebhookEventRow,
 } from './types';
 
+/** Explicit column lists (audit A-17): never `select('*')`. Kept in sync with spec/db_schema.sql. */
+const COLS = {
+  calculations: 'id,created_at,expires_at,locale,model_version,inputs_ciphertext,result_ciphertext,payload_iv,payload_tag,sjl_band,warning_count,request_id,deleted_at',
+  leads: 'id,calculation_id,created_at,expires_at,status,locale,email_ciphertext,email_hash,email_iv,email_tag,consent_report,consent_report_at,consent_owner_copy,consent_owner_copy_at,waitlist_subscription,owner_approved_at,delivered_at,deleted_at',
+  report_artifacts: 'id,lead_id,created_at,expires_at,report_version,storage_path,sha256,access_token_hash,access_token_expires_at,bytes,deleted_at',
+  deliveries: 'id,lead_id,created_at,channel,status,provider_message_id,attempt_count,last_error_category,sent_at',
+  orders: 'id,lead_id,created_at,status,stripe_checkout_session_id,stripe_payment_intent_id,currency,amount_minor,country_code,offer_id,paid_at,refunded_at',
+  privacy_requests: 'id,created_at,request_type,status,email_hash,email_ciphertext,email_iv,email_tag,locale,verified_at,completed_at,notes_category',
+} as const;
+
 const BUCKET = 'reports';
 
 type PgError = { code?: string; message: string } | null;
@@ -50,7 +60,7 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('calculations').insert(row), 'insertCalculation');
   }
   async getCalculation(id: string) {
-    const res = await this.db.from('calculations').select('*').eq('id', id).maybeSingle();
+    const res = await this.db.from('calculations').select(COLS.calculations).eq('id', id).maybeSingle();
     return must<CalculationRow | null>(res as never, 'getCalculation');
   }
   async updateCalculation(id: string, patch: Partial<CalculationRow>) {
@@ -61,14 +71,14 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('leads').insert(row), 'insertLead');
   }
   async getLead(id: string) {
-    const res = await this.db.from('leads').select('*').eq('id', id).maybeSingle();
+    const res = await this.db.from('leads').select(COLS.leads).eq('id', id).maybeSingle();
     return must<LeadRow | null>(res as never, 'getLead');
   }
   async updateLead(id: string, patch: Partial<LeadRow>) {
     mustOk(await this.db.from('leads').update(patch).eq('id', id), 'updateLead');
   }
   async listLeads({ status, limit = 25, cursor }: ListLeadsParams): Promise<ListLeadsResult> {
-    let q = this.db.from('leads').select('*').order('created_at', { ascending: false }).limit(limit + 1);
+    let q = this.db.from('leads').select(COLS.leads).order('created_at', { ascending: false }).limit(limit + 1);
     if (status) q = q.eq('status', status);
     if (cursor) q = q.lt('created_at', cursor);
     const rows = must<LeadRow[]>((await q) as never, 'listLeads');
@@ -77,7 +87,7 @@ export class SupabaseStore implements Store {
     return { items: page, next_cursor: rows.length > limit && last ? last.created_at : null };
   }
   async leadsByEmailHash(hash: string) {
-    const res = await this.db.from('leads').select('*').eq('email_hash', hash);
+    const res = await this.db.from('leads').select(COLS.leads).eq('email_hash', hash);
     return must<LeadRow[]>(res as never, 'leadsByEmailHash');
   }
 
@@ -85,7 +95,7 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('report_artifacts').upsert(row, { onConflict: 'lead_id' }), 'upsertArtifact');
   }
   async getArtifact(leadId: string) {
-    const res = await this.db.from('report_artifacts').select('*').eq('lead_id', leadId).maybeSingle();
+    const res = await this.db.from('report_artifacts').select(COLS.report_artifacts).eq('lead_id', leadId).maybeSingle();
     return must<ArtifactRow | null>(res as never, 'getArtifact');
   }
   async updateArtifact(leadId: string, patch: Partial<ArtifactRow>) {
@@ -112,7 +122,7 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('deliveries').update(patch).eq('id', id), 'updateDelivery');
   }
   async listDeliveries({ leadId, status }: { leadId?: string; status?: DeliveryRow['status'] }) {
-    let q = this.db.from('deliveries').select('*').order('created_at', { ascending: false });
+    let q = this.db.from('deliveries').select(COLS.deliveries).order('created_at', { ascending: false });
     if (leadId) q = q.eq('lead_id', leadId);
     if (status) q = q.eq('status', status);
     return must<DeliveryRow[]>((await q) as never, 'listDeliveries');
@@ -122,19 +132,19 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('orders').insert(row), 'insertOrder');
   }
   async getOrder(id: string) {
-    const res = await this.db.from('orders').select('*').eq('id', id).maybeSingle();
+    const res = await this.db.from('orders').select(COLS.orders).eq('id', id).maybeSingle();
     return must<OrderRow | null>(res as never, 'getOrder');
   }
   async getOrderBySession(sessionId: string) {
-    const res = await this.db.from('orders').select('*').eq('stripe_checkout_session_id', sessionId).maybeSingle();
+    const res = await this.db.from('orders').select(COLS.orders).eq('stripe_checkout_session_id', sessionId).maybeSingle();
     return must<OrderRow | null>(res as never, 'getOrderBySession');
   }
   async getOrderByPaymentIntent(paymentIntentId: string) {
-    const res = await this.db.from('orders').select('*').eq('stripe_payment_intent_id', paymentIntentId).maybeSingle();
+    const res = await this.db.from('orders').select(COLS.orders).eq('stripe_payment_intent_id', paymentIntentId).maybeSingle();
     return must<OrderRow | null>(res as never, 'getOrderByPaymentIntent');
   }
   async ordersByLead(leadId: string) {
-    const res = await this.db.from('orders').select('*').eq('lead_id', leadId);
+    const res = await this.db.from('orders').select(COLS.orders).eq('lead_id', leadId);
     return must<OrderRow[]>(res as never, 'ordersByLead');
   }
   async updateOrder(id: string, patch: Partial<OrderRow>) {
@@ -174,11 +184,11 @@ export class SupabaseStore implements Store {
     mustOk(await this.db.from('privacy_requests').insert(row), 'insertPrivacyRequest');
   }
   async getPrivacyRequest(id: string) {
-    const res = await this.db.from('privacy_requests').select('*').eq('id', id).maybeSingle();
+    const res = await this.db.from('privacy_requests').select(COLS.privacy_requests).eq('id', id).maybeSingle();
     return must<PrivacyRequestRow | null>(res as never, 'getPrivacyRequest');
   }
   async listPrivacyRequests(limit = 50) {
-    const res = await this.db.from('privacy_requests').select('*').order('created_at', { ascending: false }).limit(limit);
+    const res = await this.db.from('privacy_requests').select(COLS.privacy_requests).order('created_at', { ascending: false }).limit(limit);
     return must<PrivacyRequestRow[]>(res as never, 'listPrivacyRequests');
   }
   async updatePrivacyRequest(id: string, patch: Partial<PrivacyRequestRow>) {
@@ -218,11 +228,11 @@ export class SupabaseStore implements Store {
   }
 
   async findExpiredLeads(nowIso: string, limit: number) {
-    const res = await this.db.from('leads').select('*').lt('expires_at', nowIso).neq('status', 'deleted').limit(limit);
+    const res = await this.db.from('leads').select(COLS.leads).lt('expires_at', nowIso).neq('status', 'deleted').limit(limit);
     return must<LeadRow[]>(res as never, 'findExpiredLeads');
   }
   async findExpiredCalculations(nowIso: string, limit: number) {
-    const res = await this.db.from('calculations').select('*').lt('expires_at', nowIso).is('deleted_at', null).limit(limit);
+    const res = await this.db.from('calculations').select(COLS.calculations).lt('expires_at', nowIso).is('deleted_at', null).limit(limit);
     const rows = must<CalculationRow[]>(res as never, 'findExpiredCalculations');
     const out: CalculationRow[] = [];
     for (const c of rows) {

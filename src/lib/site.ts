@@ -22,6 +22,18 @@ export function legalEntity(): string {
   return process.env.NEXT_PUBLIC_LEGAL_ENTITY ?? 'ChronoSleep (entidad operadora por confirmar)';
 }
 
+export function legalRuc(): string | undefined {
+  return process.env.NEXT_PUBLIC_LEGAL_RUC || undefined;
+}
+
+export function legalAddress(): string | undefined {
+  return process.env.NEXT_PUBLIC_LEGAL_ADDRESS || undefined;
+}
+
+export function supportEmail(): string {
+  return process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? process.env.NEXT_PUBLIC_PRIVACY_EMAIL ?? 'support@chronosleep.app';
+}
+
 export function privacyContact(): string {
   return process.env.NEXT_PUBLIC_PRIVACY_EMAIL ?? process.env.NEXT_PUBLIC_SUPPORT_EMAIL ?? 'privacy@chronosleep.app';
 }

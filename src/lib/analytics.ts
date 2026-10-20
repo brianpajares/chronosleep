@@ -1,17 +1,20 @@
 'use client';
 
 import { isKnownEvent, sanitizeProps } from './analytics-catalog';
+import { getConsent, privacySignalsOptOut } from './consent';
+import { gaConfigured, gaEvent, loadGa } from './ga';
 
 /**
- * Client analytics (PostHog), privacy-first:
- *  - cookieless (memory persistence), no autocapture, no session recording, no person profiles;
- *  - honours DNT, Global Privacy Control and the in-app opt-out;
+ * Client analytics, privacy-first:
+ *  - NOTHING loads or is sent until the visitor grants analytics consent (cookie banner);
+ *  - DNT / Global Privacy Control always win;
+ *  - PostHog: cookieless (memory persistence), no autocapture/recording/profiles;
+ *  - GA4 (optional): Consent Mode v2, PII-free, same events mapped to GA recommended names;
  *  - only events/props from spec/analytics_events.json are ever sent (see analytics-catalog).
  */
 
 const KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
-export const ANALYTICS_STORAGE_KEY = 'cs_analytics';
 
 type PostHogClient = {
   capture: (event: string, props?: Record<string, unknown>) => void;
@@ -19,30 +22,22 @@ type PostHogClient = {
 
 let clientPromise: Promise<PostHogClient | null> | null = null;
 
-export function analyticsAvailable(): boolean {
+export function posthogConfigured(): boolean {
   return Boolean(KEY && KEY.startsWith('phc_') && !KEY.includes('REPLACE_ME'));
+}
+
+/** True when at least one analytics provider is configured (the banner only shows then). */
+export function analyticsAvailable(): boolean {
+  return posthogConfigured() || gaConfigured();
 }
 
 export function analyticsEnabled(): boolean {
   if (typeof window === 'undefined' || !analyticsAvailable()) return false;
-  const nav = navigator as Navigator & { globalPrivacyControl?: boolean };
-  if (nav.doNotTrack === '1' || nav.globalPrivacyControl === true) return false;
-  try {
-    return window.localStorage.getItem(ANALYTICS_STORAGE_KEY) !== 'off';
-  } catch {
-    return true;
-  }
+  if (privacySignalsOptOut()) return false;
+  return getConsent() === 'granted';
 }
 
-export function setAnalyticsEnabled(enabled: boolean): void {
-  try {
-    window.localStorage.setItem(ANALYTICS_STORAGE_KEY, enabled ? 'on' : 'off');
-  } catch {
-    /* storage unavailable: preference only lives for this view */
-  }
-}
-
-function load(): Promise<PostHogClient | null> {
+function loadPostHog(): Promise<PostHogClient | null> {
   if (!clientPromise) {
     clientPromise = import('posthog-js')
       .then(({ default: posthog }) => {
@@ -65,12 +60,23 @@ function load(): Promise<PostHogClient | null> {
   return clientPromise;
 }
 
+/** Starts the configured providers. Safe to call repeatedly; does nothing without consent. */
+export function startAnalytics(): void {
+  if (!analyticsEnabled()) return;
+  if (gaConfigured()) loadGa();
+  if (posthogConfigured()) void loadPostHog();
+}
+
 /** Fire-and-forget, never throws, never blocks rendering. */
 export function track(event: string, props: Record<string, unknown> = {}): void {
   if (!isKnownEvent(event) || !analyticsEnabled()) return;
   const safe = sanitizeProps(event, props);
   const run = () => {
-    void load().then((ph) => ph?.capture(event, safe));
+    if (posthogConfigured()) void loadPostHog().then((ph) => ph?.capture(event, safe));
+    if (gaConfigured()) {
+      loadGa();
+      gaEvent(event, safe);
+    }
   };
   if (typeof window.requestIdleCallback === 'function') window.requestIdleCallback(run, { timeout: 2000 });
   else setTimeout(run, 0);

@@ -54,7 +54,7 @@ export default async function FaqPage({ params }: PageProps<'/[locale]/faq'>) {
         <p className="mx-auto mt-2 max-w-md text-muted">{t('still_body')}</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
           <TrackedCta source="faq">{nav('calculate')}</TrackedCta>
-          <Link href="/como-funciona" className="inline-flex min-h-11 items-center font-semibold">
+          <Link prefetch={false} href="/como-funciona" className="inline-flex min-h-11 items-center font-semibold">
             {nav('how')}
           </Link>
         </div>

@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import type Stripe from 'stripe';
 import { priceFor } from '@/lib/pricing';
 import { ApiError } from '../api';
-import { serverTrack } from '../analytics';
+import { sendGaPurchase, serverTrack } from '../analytics';
 import { sha256Hex } from '../crypto';
 import { appOrigin, env } from '../env';
 import { log } from '../logger';
@@ -23,6 +23,10 @@ export function assertStripeMode(): void {
 async function client(): Promise<Stripe> {
   const key = env.stripeSecret();
   if (!key) throw new ApiError(503, 'stripe_not_configured', 'Payments are not configured');
+  // Double switch for real money: a live key only works with an explicit written approval flag.
+  if (key.startsWith('sk_live_') && process.env.STRIPE_LIVE_APPROVED !== 'true') {
+    throw new ApiError(503, 'payments_live_blocked', 'Live payments are not approved');
+  }
   const { default: StripeSdk } = await import('stripe');
   return new StripeSdk(key);
 }
@@ -33,6 +37,7 @@ export async function createCheckoutSession(args: {
   leadId: string;
   locale: Locale;
   countryCode?: string;
+  gaClientId?: string;
 }): Promise<{ checkout_url: string }> {
   assertStripeMode();
   const store = getStore();
@@ -84,7 +89,12 @@ export async function createCheckoutSession(args: {
       cancel_url: `${origin}${prefix(args.locale)}/checkout?lead=${lead.id}&cancelled=1`,
       locale: args.locale === 'pt' ? 'pt-BR' : args.locale,
       // Minimal metadata: opaque ids only, never email or schedules.
-      metadata: { order_id: order.id, lead_id: lead.id },
+      metadata: {
+        order_id: order.id,
+        lead_id: lead.id,
+        // Pseudonymous analytics id, present only if the buyer consented to analytics (never PII).
+        ...(args.gaClientId ? { ga_cid: args.gaClientId } : {}),
+      },
       payment_intent_data: { metadata: { order_id: order.id } },
     },
     { idempotencyKey: `checkout-${order.id}` },
@@ -171,6 +181,22 @@ async function settleOrder(session: Stripe.Checkout.Session): Promise<void> {
   // Different events can announce the same payment: only the first one settles and delivers.
   if (order.status === 'paid') return;
 
+  // Never deliver on a payment that does not match what we asked for (amount, currency, ownership).
+  const amountOk = session.amount_total === null || session.amount_total === undefined || session.amount_total === order.amount_minor;
+  const currencyOk = !session.currency || session.currency.toLowerCase() === order.currency.toLowerCase();
+  const ownerOk = !session.metadata?.lead_id || session.metadata.lead_id === order.lead_id;
+  if (!amountOk || !currencyOk || !ownerOk) {
+    log.error('stripe_payment_mismatch', { error_category: !amountOk ? 'amount' : !currencyOk ? 'currency' : 'owner' });
+    await store.appendAudit({
+      actor_type: 'system',
+      action: 'payment_mismatch',
+      entity_type: 'order',
+      entity_id: order.id,
+      metadata: { amount: amountOk, currency: currencyOk, owner: ownerOk },
+    });
+    return;
+  }
+
   const paymentIntent = typeof session.payment_intent === 'string' ? session.payment_intent : session.payment_intent?.id ?? null;
   await store.updateOrder(order.id, {
     status: 'paid',
@@ -189,6 +215,13 @@ async function settleOrder(session: Stripe.Checkout.Session): Promise<void> {
     price_minor: order.amount_minor,
     offer_id: order.offer_id ?? 'report_single',
     payment_provider: 'stripe',
+  });
+  // GA4 purchase from the server (Measurement Protocol): once per order, deduplicated by transaction_id.
+  await sendGaPurchase({
+    transactionId: order.id,
+    currency: order.currency.toUpperCase(),
+    value: order.amount_minor / 100,
+    clientId: session.metadata?.ga_cid,
   });
 }
 

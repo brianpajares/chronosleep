@@ -45,6 +45,7 @@ export function ReportGate() {
   const [ownerCopy, setOwnerCopy] = useState(false);
   const [waitlist, setWaitlist] = useState(false);
   const [token, setToken] = useState('');
+  const [trap, setTrap] = useState('');
   const [busy, setBusy] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; consent?: string; form?: string }>({});
 
@@ -99,6 +100,7 @@ export function ReportGate() {
           waitlist_subscription: waitlist,
           locale,
           turnstile_token: token,
+          website: trap,
         }),
       });
       const body = (await res.json()) as { id?: string; status?: string; mode?: string; code?: string };
@@ -213,6 +215,7 @@ export function ReportGate() {
             </div>
           </div>
 
+          <input type="text" name="website" value={trap} onChange={(e) => setTrap(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 opacity-0" />
           <TurnstileField onToken={setToken} />
           <FieldError id={`${id}-form-error`}>{errors.form}</FieldError>
 

@@ -52,6 +52,7 @@ export const pt: Messages = {
     language_en: 'English',
     language_pt: 'Português',
     not_found_body: 'A página que você procura não existe ou mudou de lugar.',
+    help_contact: 'Precisa de ajuda com seu pedido ou pagamento? Escreva para nós',
     not_found_cta: 'Voltar ao início',
     error_title: 'Algo deu errado',
     error_body: 'Não conseguimos mostrar esta página. Seus dados não foram perdidos; você pode tentar de novo.',
@@ -525,6 +526,119 @@ export const pt: Messages = {
     controller_label: 'Controlador dos dados',
     controller_value: '{entity}',
     contact_label: 'Contato de privacidade',
+    refunds: {
+      title: 'Política de reembolso',
+      intro: 'Durante a fase de validação o relatório não tem custo. Se a cobrança for ativada, estas regras se aplicam.',
+      sections: [
+        {
+          h: 'Garantia de 7 dias',
+          p: [
+            'Se o relatório não corresponder ao que é descrito, você pode pedir reembolso em até 7 dias após a compra.',
+          ],
+        },
+        {
+          h: 'Como solicitar',
+          p: [
+            'Escreva ao contato indicado nesta página com seu ID de verificação (CS-XXXX-XXXX). Respondemos em prazo razoável [COMPLETAR prazo].',
+          ],
+        },
+        {
+          h: 'Forma de devolução',
+          p: [
+            'O reembolso é feito pelo mesmo meio de pagamento usado na compra.',
+          ],
+        },
+        {
+          h: 'Produto digital',
+          p: [
+            'O relatório é um produto digital entregue imediatamente. O direito de arrependimento pode variar conforme o país [COMPLETAR com assessoria jurídica].',
+          ],
+        },
+      ],
+    },
+    cookies: {
+      title: 'Política de cookies',
+      intro: 'O que guardamos no seu navegador e para quê.',
+      sections: [
+        {
+          h: 'Essenciais',
+          p: [
+            'Guardamos no seu navegador o tema de cor, o idioma e a sua escolha de cookies. Não identificam ninguém. As respostas do questionário ficam no armazenamento de sessão da aba por no máximo 2 horas.',
+          ],
+        },
+        {
+          h: 'Análise (somente se você aceitar)',
+          p: [
+            'Google Analytics 4, se configurado: mede páginas e etapas do funil sem dados pessoais; usa os cookies _ga e _ga_* (o Google os define por padrão por até 2 anos; os dados ficam retidos por 14 meses).',
+            'PostHog, se configurado: funciona sem cookies (em memória) e sem perfis de usuário.',
+          ],
+        },
+        {
+          h: 'Publicidade',
+          p: [
+            'Não usamos cookies de publicidade nem de personalização.',
+          ],
+        },
+        {
+          h: 'Como mudar sua escolha',
+          p: [
+            'Use o link "Preferências de cookies" no rodapé. Também respeitamos os sinais Do Not Track e Global Privacy Control.',
+          ],
+        },
+      ],
+    },
+    claims: {
+      title: 'Livro de Reclamações',
+      intro: 'Conforme o Código de Proteção e Defesa do Consumidor do Peru (Lei n.º 29571), você pode registrar uma reclamação ou queixa sobre o serviço.',
+      sections: [
+        {
+          h: 'Como registrar',
+          p: [
+            'Escreva ao email de contato desta página com: nome, documento de identidade, email, descrição da reclamação ou queixa e o que solicita. [COMPLETAR: link do Livro de Reclamações virtual quando estiver disponível].',
+          ],
+        },
+        {
+          h: 'Prazo de resposta',
+          p: [
+            'Responderemos dentro do prazo legal aplicável [COMPLETAR].',
+          ],
+        },
+      ],
+    },
+    credits: {
+      title: 'Créditos e licenças',
+      intro: 'Software, dados e recursos por trás do ChronoSleep.',
+      sections: [
+        {
+          h: 'Software',
+          p: [
+            'Next.js, React, Tailwind CSS, next-intl, Zod, Supabase, Resend, @react-pdf/renderer, Stripe e lucide-react, sob licenças de código aberto ou serviços com termos comerciais. A lista completa está em package.json.',
+          ],
+        },
+        {
+          h: 'Metodologia',
+          p: [
+            'Fórmulas baseadas no pacote aberto mctq (rOpenSci, licença MIT) e na literatura publicada. O ChronoSleep não copia o questionário MCTQ oficial.',
+          ],
+        },
+        {
+          h: 'Dados de referência',
+          p: [
+            'NHANES 2017–2020 (JAMA Network Open, licença CC BY).',
+          ],
+        },
+        {
+          h: 'Imagens e fontes',
+          p: [
+            'Não usamos imagens de terceiros nem fontes externas: os ícones são do lucide-react (licença ISC), as fontes são as do sistema e o logotipo é próprio.',
+          ],
+        },
+      ],
+    },
+    entity_ruc_label: 'RUC',
+    entity_address_label: 'Endereço',
+    pending: '[COMPLETAR]',
+    contact_page_note: 'Contato',
     privacy: {
       title: 'Política de privacidade',
       intro:
@@ -577,6 +691,30 @@ export const pt: Messages = {
         {
           h: 'Menores de idade',
           p: ['O ChronoSleep é para pessoas com 18 anos ou mais.'],
+        },
+        {
+          h: 'Inteligência artificial',
+          p: [
+            'O ChronoSleep não usa inteligência artificial para calcular resultados nem envia seus dados a provedores de IA. O cálculo é uma fórmula determinística e pública.',
+          ],
+        },
+        {
+          h: 'Transferências internacionais',
+          p: [
+            'Nossos operadores podem tratar dados fora do seu país (por exemplo, nos Estados Unidos ou na União Europeia). Exigimos garantias contratuais adequadas e limitamos os dados enviados ao mínimo necessário.',
+          ],
+        },
+        {
+          h: 'Cookies e análise',
+          p: [
+            'Somente com o seu consentimento usamos análise anônima (veja a política de cookies). Você pode retirá-lo a qualquer momento pelo rodapé.',
+          ],
+        },
+        {
+          h: 'Incidentes de segurança',
+          p: [
+            'Se uma violação afetar seus dados, notificaremos a autoridade competente (no Peru, a Autoridade Nacional de Proteção de Dados Pessoais) e as pessoas afetadas dentro dos prazos da legislação aplicável.',
+          ],
         },
       ],
     },
@@ -645,6 +783,15 @@ export const pt: Messages = {
         },
       ],
     },
+  },
+  cookies: {
+    title: 'Sua privacidade e os cookies',
+    body: 'Usamos análise anônima para melhorar o ChronoSleep. Nenhuma ferramenta de análise é carregada até você aceitar. Você pode mudar de ideia quando quiser.',
+    policy: 'Política de cookies',
+    accept: 'Aceitar',
+    reject: 'Recusar',
+    current: 'Sua escolha atual: {value}',
+    preferences: 'Preferências de cookies',
   },
   rights: {
     eyebrow: 'Privacidade',

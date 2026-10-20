@@ -1,12 +1,13 @@
 import { getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/navigation';
 import { MODEL_VERSION } from '@/domain/chronosleep';
-import { AnalyticsToggle } from './AnalyticsToggle';
+import { CookiePreferencesButton } from './ConsentBanner';
 import { LogoMark, Wordmark } from './Logo';
 
 export async function Footer() {
   const t = await getTranslations('site');
   const nav = await getTranslations('nav');
+  const legal = await getTranslations('legal');
   const year = new Date().getUTCFullYear();
 
   const linkClass =
@@ -27,17 +28,17 @@ export async function Footer() {
         <nav aria-label={t('footer_nav')}>
           <ul className="space-y-0.5">
             <li>
-              <Link href="/como-funciona" className={linkClass}>
+              <Link prefetch={false} href="/como-funciona" className={linkClass}>
                 {t('footer_methodology')}
               </Link>
             </li>
             <li>
-              <Link href="/faq" className={linkClass}>
+              <Link prefetch={false} href="/faq" className={linkClass}>
                 {nav('faq')}
               </Link>
             </li>
             <li>
-              <Link href="/legal/derechos" className={linkClass}>
+              <Link prefetch={false} href="/legal/derechos" className={linkClass}>
                 {t('footer_rights')}
               </Link>
             </li>
@@ -47,18 +48,38 @@ export async function Footer() {
         <nav aria-label={t('footer_nav')}>
           <ul className="space-y-0.5">
             <li>
-              <Link href="/legal/privacidad" className={linkClass}>
+              <Link prefetch={false} href="/legal/privacidad" className={linkClass}>
                 {nav('privacy')}
               </Link>
             </li>
             <li>
-              <Link href="/legal/terminos" className={linkClass}>
+              <Link prefetch={false} href="/legal/terminos" className={linkClass}>
                 {nav('terms')}
               </Link>
             </li>
             <li>
-              <Link href="/legal/salud" className={linkClass}>
+              <Link prefetch={false} href="/legal/salud" className={linkClass}>
                 {nav('health')}
+              </Link>
+            </li>
+            <li>
+              <Link prefetch={false} href="/legal/reembolsos" className={linkClass}>
+                {legal('refunds.title')}
+              </Link>
+            </li>
+            <li>
+              <Link prefetch={false} href="/legal/cookies" className={linkClass}>
+                {legal('cookies.title')}
+              </Link>
+            </li>
+            <li>
+              <Link prefetch={false} href="/legal/libro-de-reclamaciones" className={linkClass}>
+                {legal('claims.title')}
+              </Link>
+            </li>
+            <li>
+              <Link prefetch={false} href="/legal/creditos" className={linkClass}>
+                {legal('credits.title')}
               </Link>
             </li>
           </ul>
@@ -70,7 +91,7 @@ export async function Footer() {
           <p>
             {t('copyright', { year })} · {t('model_version', { version: MODEL_VERSION })}
           </p>
-          <AnalyticsToggle />
+          <CookiePreferencesButton />
         </div>
       </div>
     </footer>
